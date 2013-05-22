@@ -7,6 +7,7 @@
 //
 
 #import "EACPlaybackViewController.h"
+#import "Constants.h"
 
 @interface EACPlaybackViewController ()
 //background
@@ -18,6 +19,7 @@
 
 //info. visuals
 @property (weak, nonatomic) IBOutlet UIImageView *elapsedImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *browserWindowImageView;
 
 //dynamic visuals
 @property (weak, nonatomic) IBOutlet UIImageView *animatedBarsImageView;
@@ -94,6 +96,16 @@
 	[self applyElapsedTime];
 	[self.animatedBarsImageView startAnimating];
 	[self.animatedConcentricImageView startAnimating];
+	if (IS_IPHONE_5)
+	{
+		[self iPhone5Setup];
+	}
+}
+
+-(void)iPhone5Setup
+{//The iphone 5 has a longer screen, which cannot be accounted for in the storyboard setup, so we need to give it a different image and lay out the sub-images differently
+	self.backgroundImageView.image = [UIImage imageNamed:@"main screen-tall@2x.png"];
+	self.browserWindowImageView.frame = self.scanButtonImageView.frame = self.playButtonImageView.frame = self.elapsedImageView.frame = self.animatedBarsImageView.frame = self.animatedConcentricImageView.frame = CGRectMake(0, 44, self.scanButtonImageView.frame.size.width, self.scanButtonImageView.frame.size.height);
 }
 
 -(void)applyElapsedTime

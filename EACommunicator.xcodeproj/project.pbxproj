@@ -13,8 +13,6 @@
 		2C754405174CF06D00B353D0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C754403174CF06D00B353D0 /* InfoPlist.strings */; };
 		2C754407174CF06D00B353D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C754406174CF06D00B353D0 /* main.m */; };
 		2C75440B174CF06D00B353D0 /* EACAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C75440A174CF06D00B353D0 /* EACAppDelegate.m */; };
-		2C75440D174CF06D00B353D0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75440C174CF06D00B353D0 /* Default.png */; };
-		2C754411174CF06D00B353D0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754410174CF06D00B353D0 /* Default-568h@2x.png */; };
 		2C754414174CF06D00B353D0 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C754412174CF06D00B353D0 /* MainStoryboard.storyboard */; };
 		2C75441F174CF39400B353D0 /* EACScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C75441E174CF39400B353D0 /* EACScannerViewController.m */; };
 		2C754423174CF42800B353D0 /* EACPlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C754422174CF42800B353D0 /* EACPlaybackViewController.m */; };
@@ -41,9 +39,9 @@
 		2C754463174CF4F700B353D0 /* elapsed6.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754439174CF4F700B353D0 /* elapsed6.png */; };
 		2C754464174CF4F700B353D0 /* elapsed7.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75443A174CF4F700B353D0 /* elapsed7.png */; };
 		2C754465174CF4F700B353D0 /* elapsed8.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75443B174CF4F700B353D0 /* elapsed8.png */; };
-		2C754466174CF4F700B353D0 /* main screen 320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75443C174CF4F700B353D0 /* main screen 320x480.png */; };
-		2C754467174CF4F700B353D0 /* main screen 640x960.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75443D174CF4F700B353D0 /* main screen 640x960.png */; };
-		2C754468174CF4F700B353D0 /* main screen 640x1136.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75443E174CF4F700B353D0 /* main screen 640x1136.png */; };
+		2C754466174CF4F700B353D0 /* main screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75443C174CF4F700B353D0 /* main screen.png */; };
+		2C754467174CF4F700B353D0 /* main screen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75443D174CF4F700B353D0 /* main screen@2x.png */; };
+		2C754468174CF4F700B353D0 /* main screen-tall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75443E174CF4F700B353D0 /* main screen-tall@2x.png */; };
 		2C754469174CF4F700B353D0 /* main screen ORIG.tif in Resources */ = {isa = PBXBuildFile; fileRef = 2C75443F174CF4F700B353D0 /* main screen ORIG.tif */; };
 		2C75446A174CF4F700B353D0 /* play-pause-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754440174CF4F700B353D0 /* play-pause-off.png */; };
 		2C75446B174CF4F700B353D0 /* play-pause-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754441174CF4F700B353D0 /* play-pause-on.png */; };
@@ -65,8 +63,9 @@
 		2C754480174CFBD300B353D0 /* instructional cards 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75447D174CFBD300B353D0 /* instructional cards 1.png */; };
 		2C754481174CFBD300B353D0 /* instructional cards 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75447E174CFBD300B353D0 /* instructional cards 2.png */; };
 		2C754482174CFBD300B353D0 /* instructional cards3.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75447F174CFBD300B353D0 /* instructional cards3.png */; };
-		2C754488174D005100B353D0 /* EACommunicatorLaunchImage640x960.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754487174D005100B353D0 /* EACommunicatorLaunchImage640x960.png */; };
 		2C75448A174D006800B353D0 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754489174D006800B353D0 /* Default@2x.png */; };
+		2C754490174D068F00B353D0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75448F174D068F00B353D0 /* Default-568h@2x.png */; };
+		2CD7E0C8174D766E0062D951 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CD7E0C7174D766E0062D951 /* Default.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,8 +79,6 @@
 		2C754408174CF06D00B353D0 /* EACommunicator-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EACommunicator-Prefix.pch"; sourceTree = "<group>"; };
 		2C754409174CF06D00B353D0 /* EACAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EACAppDelegate.h; sourceTree = "<group>"; };
 		2C75440A174CF06D00B353D0 /* EACAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EACAppDelegate.m; sourceTree = "<group>"; };
-		2C75440C174CF06D00B353D0 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		2C754410174CF06D00B353D0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2C754413174CF06D00B353D0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		2C75441D174CF39400B353D0 /* EACScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EACScannerViewController.h; sourceTree = "<group>"; };
 		2C75441E174CF39400B353D0 /* EACScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EACScannerViewController.m; sourceTree = "<group>"; };
@@ -110,9 +107,9 @@
 		2C754439174CF4F700B353D0 /* elapsed6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = elapsed6.png; sourceTree = "<group>"; };
 		2C75443A174CF4F700B353D0 /* elapsed7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = elapsed7.png; sourceTree = "<group>"; };
 		2C75443B174CF4F700B353D0 /* elapsed8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = elapsed8.png; sourceTree = "<group>"; };
-		2C75443C174CF4F700B353D0 /* main screen 320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main screen 320x480.png"; sourceTree = "<group>"; };
-		2C75443D174CF4F700B353D0 /* main screen 640x960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main screen 640x960.png"; sourceTree = "<group>"; };
-		2C75443E174CF4F700B353D0 /* main screen 640x1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main screen 640x1136.png"; sourceTree = "<group>"; };
+		2C75443C174CF4F700B353D0 /* main screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main screen.png"; sourceTree = "<group>"; };
+		2C75443D174CF4F700B353D0 /* main screen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main screen@2x.png"; sourceTree = "<group>"; };
+		2C75443E174CF4F700B353D0 /* main screen-tall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main screen-tall@2x.png"; sourceTree = "<group>"; };
 		2C75443F174CF4F700B353D0 /* main screen ORIG.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "main screen ORIG.tif"; sourceTree = "<group>"; };
 		2C754440174CF4F700B353D0 /* play-pause-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-pause-off.png"; sourceTree = "<group>"; };
 		2C754441174CF4F700B353D0 /* play-pause-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-pause-on.png"; sourceTree = "<group>"; };
@@ -134,8 +131,10 @@
 		2C75447D174CFBD300B353D0 /* instructional cards 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instructional cards 1.png"; sourceTree = "<group>"; };
 		2C75447E174CFBD300B353D0 /* instructional cards 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instructional cards 2.png"; sourceTree = "<group>"; };
 		2C75447F174CFBD300B353D0 /* instructional cards3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instructional cards3.png"; sourceTree = "<group>"; };
-		2C754487174D005100B353D0 /* EACommunicatorLaunchImage640x960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EACommunicatorLaunchImage640x960.png; sourceTree = "<group>"; };
 		2C754489174D006800B353D0 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
+		2C75448F174D068F00B353D0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
+		2CD7E0C6174D704C0062D951 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		2CD7E0C7174D766E0062D951 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +181,7 @@
 		2C754400174CF06D00B353D0 /* EACommunicator */ = {
 			isa = PBXGroup;
 			children = (
+				2CD7E0C6174D704C0062D951 /* Constants.h */,
 				2C754420174CF39800B353D0 /* ViewControllers */,
 				2C754412174CF06D00B353D0 /* MainStoryboard.storyboard */,
 				2C754424174CF49300B353D0 /* Images */,
@@ -199,8 +199,6 @@
 				2C754403174CF06D00B353D0 /* InfoPlist.strings */,
 				2C754406174CF06D00B353D0 /* main.m */,
 				2C754408174CF06D00B353D0 /* EACommunicator-Prefix.pch */,
-				2C75440C174CF06D00B353D0 /* Default.png */,
-				2C754410174CF06D00B353D0 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -219,8 +217,9 @@
 		2C754424174CF49300B353D0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2CD7E0C7174D766E0062D951 /* Default.png */,
+				2C75448F174D068F00B353D0 /* Default-568h@2x.png */,
 				2C754489174D006800B353D0 /* Default@2x.png */,
-				2C754487174D005100B353D0 /* EACommunicatorLaunchImage640x960.png */,
 				2C75447B174CFACB00B353D0 /* icon01-114x114.png */,
 				2C754479174CFAC700B353D0 /* icon01-57x57.png */,
 				2C75447D174CFBD300B353D0 /* instructional cards 1.png */,
@@ -249,9 +248,9 @@
 				2C754439174CF4F700B353D0 /* elapsed6.png */,
 				2C75443A174CF4F700B353D0 /* elapsed7.png */,
 				2C75443B174CF4F700B353D0 /* elapsed8.png */,
-				2C75443C174CF4F700B353D0 /* main screen 320x480.png */,
-				2C75443D174CF4F700B353D0 /* main screen 640x960.png */,
-				2C75443E174CF4F700B353D0 /* main screen 640x1136.png */,
+				2C75443C174CF4F700B353D0 /* main screen.png */,
+				2C75443D174CF4F700B353D0 /* main screen@2x.png */,
+				2C75443E174CF4F700B353D0 /* main screen-tall@2x.png */,
 				2C75443F174CF4F700B353D0 /* main screen ORIG.tif */,
 				2C754440174CF4F700B353D0 /* play-pause-off.png */,
 				2C754441174CF4F700B353D0 /* play-pause-on.png */,
@@ -325,8 +324,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C754405174CF06D00B353D0 /* InfoPlist.strings in Resources */,
-				2C75440D174CF06D00B353D0 /* Default.png in Resources */,
-				2C754411174CF06D00B353D0 /* Default-568h@2x.png in Resources */,
 				2C754414174CF06D00B353D0 /* MainStoryboard.storyboard in Resources */,
 				2C75444F174CF4F700B353D0 /* bars-vis-1.png in Resources */,
 				2C754450174CF4F700B353D0 /* bars-vis-2.png in Resources */,
@@ -351,9 +348,9 @@
 				2C754463174CF4F700B353D0 /* elapsed6.png in Resources */,
 				2C754464174CF4F700B353D0 /* elapsed7.png in Resources */,
 				2C754465174CF4F700B353D0 /* elapsed8.png in Resources */,
-				2C754466174CF4F700B353D0 /* main screen 320x480.png in Resources */,
-				2C754467174CF4F700B353D0 /* main screen 640x960.png in Resources */,
-				2C754468174CF4F700B353D0 /* main screen 640x1136.png in Resources */,
+				2C754466174CF4F700B353D0 /* main screen.png in Resources */,
+				2C754467174CF4F700B353D0 /* main screen@2x.png in Resources */,
+				2C754468174CF4F700B353D0 /* main screen-tall@2x.png in Resources */,
 				2C754469174CF4F700B353D0 /* main screen ORIG.tif in Resources */,
 				2C75446A174CF4F700B353D0 /* play-pause-off.png in Resources */,
 				2C75446B174CF4F700B353D0 /* play-pause-on.png in Resources */,
@@ -375,8 +372,9 @@
 				2C754480174CFBD300B353D0 /* instructional cards 1.png in Resources */,
 				2C754481174CFBD300B353D0 /* instructional cards 2.png in Resources */,
 				2C754482174CFBD300B353D0 /* instructional cards3.png in Resources */,
-				2C754488174D005100B353D0 /* EACommunicatorLaunchImage640x960.png in Resources */,
 				2C75448A174D006800B353D0 /* Default@2x.png in Resources */,
+				2C754490174D068F00B353D0 /* Default-568h@2x.png in Resources */,
+				2CD7E0C8174D766E0062D951 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
