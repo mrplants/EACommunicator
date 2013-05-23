@@ -10,4 +10,6 @@
 
 @interface EACScannerViewController : UIViewController
 
+@property (nonatomic, weak) id delegate;
+
 @end

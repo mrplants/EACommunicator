@@ -7,6 +7,7 @@
 //
 
 #import "EACScannerViewController.h"
+#import "EACPlaybackViewController.h"
 #import "Constants.h"
 #include "TargetConditionals.h"
 #import <AVFoundation/AVFoundation.h>
@@ -21,14 +22,14 @@
 @property (weak, nonatomic) IBOutlet UIImageView *scannerLightImageView;
 
 //visual models
-@property (nonatomic) int crosshairImageIndex;
 @property (strong, nonatomic) NSArray *crosshairImageArray;
-
-@property (nonatomic) int scannerLightImageIndex;
 @property (strong, nonatomic) NSArray *scannerLightImageArray;
 
 //camera equipment
 @property (weak, nonatomic) IBOutlet ZBarReaderView *zBarReaderView;
+
+//codes that we are looking for
+@property (nonatomic, strong) NSArray * codes;
 
 @property BOOL isProcessingSampleFrame;
 
@@ -41,6 +42,10 @@
 {
 	[super viewDidLoad];
 
+#define BLANK 0
+#define GREEN 1
+#define RED 2
+	
 	self.crosshairImageArray =
 	@[[UIImage imageNamed:@"scanner-crosshairs-blank.png"],
 	 [UIImage imageNamed:@"scanner-crosshairs-green.png"],
@@ -52,6 +57,8 @@
 	 [UIImage imageNamed:@"scanner-light-green.png"],
 	 [UIImage imageNamed:@"scanner-light-red.png"]
 	 ];
+	
+	[self loadAudioCSV];
 }
 
 -(void)viewDidLayoutSubviews
@@ -71,8 +78,12 @@
 
 -(void) setupZBar
 {
+	//cropping sizes taken from the original scan image
+
 	// the delegate receives decode results
-	self.zBarReaderView.readerDelegate = self;	
+	self.zBarReaderView.readerDelegate = self;
+	//self.zBarReaderView.tracksSymbols = YES;
+	//self.zBarReaderView.allowsPinchZoom = NO;
 }
 
 -(void)iPhone5Setup
@@ -80,6 +91,18 @@
 	self.backgroundImageView.image = [UIImage imageNamed:@"scanner screen-tall@2x.png"];
 	//move the dynamic images down so they still line up with the slots in the background image
 	self.crosshairsImageView.frame = self.scannerLightImageView.frame = CGRectMake(0, 44, self.crosshairsImageView.frame.size.width, self.crosshairsImageView.frame.size.height);
+	self.zBarReaderView.frame = CGRectMake(self.zBarReaderView.frame.origin.x, self.zBarReaderView.frame.origin.y + 44, self.zBarReaderView.frame.size.width, self.zBarReaderView.frame.size.height);
+}
+
+-(void) loadAudioCSV
+{
+	NSString* pathT = [[NSBundle mainBundle] pathForResource:@"EACommunicatorAudioDataModel"
+																										ofType:@"csv"];
+	NSString* contentT = [NSString stringWithContentsOfFile:pathT
+																								 encoding:NSUTF8StringEncoding
+																										error:NULL];
+	self.codes = [contentT componentsSeparatedByString:@"\r"];
+	
 }
 
 - (IBAction)backButtonTapped
@@ -87,37 +110,17 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)nextScannerButton
-{
-	
-	if (self.crosshairImageIndex < 2)
-		self.crosshairImageIndex++;
-	else self.crosshairImageIndex = 0;
-	
-	self.crosshairsImageView.image = (UIImage *)self.crosshairImageArray[self.crosshairImageIndex];
-	
-}
-- (IBAction)nextLightButton
-{
-	if (self.scannerLightImageIndex < 2)
-		self.scannerLightImageIndex++;
-	else self.scannerLightImageIndex = 0;
-	
-	self.scannerLightImageView.image = (UIImage *)self.scannerLightImageArray[self.scannerLightImageIndex];
-}
-
--(void)didReceiveMemoryWarning
-{
-	[super didReceiveMemoryWarning];
-}
-
 - (void) viewDidAppear: (BOOL) animated
 {
 	// run the reader when the view is visible
+	self.scannerLightImageView.image = self.scannerLightImageArray[BLANK];
+	self.crosshairsImageView.image = self.crosshairImageArray[BLANK];
 	[self.zBarReaderView start];
+	self.scannerLightImageView.image = self.scannerLightImageArray[RED];
+	self.crosshairsImageView.image = self.crosshairImageArray[RED];
 }
 
-- (void) viewWillDisappear: (BOOL) animated
+-(void)viewDidDisappear:(BOOL)animated
 {
 	[self.zBarReaderView stop];
 }
@@ -148,8 +151,27 @@
 	// do something useful with results
 	for(ZBarSymbol *sym in syms) {
 		NSLog(@"%@", sym.data);
+		if ([self isCorrectCode:sym.data])
+		{
+			self.scannerLightImageView.image = self.scannerLightImageArray[GREEN];
+			self.crosshairsImageView.image = self.crosshairImageArray[GREEN];
+			EACPlaybackViewController* playerViewController = self.delegate;
+			playerViewController.audioFileName = [NSString stringWithFormat:@"ea_duotr%@",sym.data];
+			[playerViewController loadAudioFile];
+			[self dismissViewControllerAnimated:YES completion:NULL];
+		}
 		break;
 	}
+}
+
+-(BOOL) isCorrectCode:(NSString*)data
+{
+	for (NSString* code in self.codes)
+	{
+    if ([data isEqualToString:code])
+			return YES;
+	}
+	return NO;
 }
 
 @end

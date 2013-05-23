@@ -48,7 +48,7 @@
 																			mainFrame.size.width,
 																			mainFrame.size.height)];
 	[self setupScrollView];
-	[UIView animateWithDuration:0.5 animations:^() {
+	[UIView animateWithDuration:0.2 animations:^() {
 		self.scrollView.frame = mainFrame;
 	}];
 }

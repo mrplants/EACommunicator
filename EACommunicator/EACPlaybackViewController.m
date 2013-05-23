@@ -7,9 +7,17 @@
 //
 
 #import "EACPlaybackViewController.h"
+#import "EACScannerViewController.h"
 #import "Constants.h"
+#import <AVFoundation/AVFoundation.h>
 
-@interface EACPlaybackViewController ()
+@interface EACPlaybackViewController () <AVAudioPlayerDelegate>
+
+//the audio player for the adventure files and associated properties
+@property (nonatomic, strong) AVAudioPlayer * player;
+@property (nonatomic, strong) NSTimer * playerTimer;
+@property (nonatomic, strong) NSTimer * playbackMeteringTimer;
+
 //background
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
@@ -84,9 +92,9 @@
 	//setup the animations
 	self.animatedBarsImageView.animationImages = self.animatedBarsImageArray;
 	self.animatedBarsImageView.animationDuration = 0.5;
-	self.animatedConcentricImageView.animationImages = self.animatedConcentricImageArray;
-	self.animatedConcentricImageView.animationDuration = 0.5;
 	
+	self.animatedConcentricImageView.image = self.animatedConcentricImageArray[0];
+		
 	[super viewDidLoad];
 }
 
@@ -94,12 +102,20 @@
 {
 	[super viewDidLayoutSubviews];
 	[self applyElapsedTime];
-	[self.animatedBarsImageView startAnimating];
-	[self.animatedConcentricImageView startAnimating];
 	if (IS_IPHONE_5)
 	{
 		[self iPhone5Setup];
 	}
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
+	
+	//prepare the player so it runs faster
+	[self.player prepareToPlay];
+	self.player.delegate = self;
+
 }
 
 -(void)iPhone5Setup
@@ -108,14 +124,36 @@
 	self.browserWindowImageView.frame = self.scanButtonImageView.frame = self.playButtonImageView.frame = self.elapsedImageView.frame = self.animatedBarsImageView.frame = self.animatedConcentricImageView.frame = CGRectMake(0, 44, self.scanButtonImageView.frame.size.width, self.scanButtonImageView.frame.size.height);
 }
 
+-(void)loadAudioFile
+{
+	NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: [[NSBundle mainBundle] pathForResource:self.audioFileName
+																																											 ofType:@"mp3"]];
+	NSLog(@"url: %@", fileURL);
+	self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
+	self.player.meteringEnabled = YES;
+	
+}
+
 -(void)applyElapsedTime
 {
-	int elapsedTimeIncrement = self.elapsedTimeSlider.value * 8;
+	NSTimeInterval timeLeft = self.player.duration - self.player.currentTime;
+	
+	// update your UI with timeLeft
+
+	int elapsedTimeIncrement = self.player.currentTime / self.player.duration * 8;
+	
 	self.elapsedImageView.image = self.elapsedVisualImageArray[elapsedTimeIncrement];
 }
-- (IBAction)elapsedTimeSliderValueChanged:(id)sender
+
+-(void) applyPlaybackMeteringLevel
 {
-	[self applyElapsedTime];
+	[self.player updateMeters];
+	//returns how loud the left speaker is. 0 is quiet 1 is loud
+	float channelRatio = 1 - [self.player peakPowerForChannel:0] / [self.player averagePowerForChannel:0];
+	
+	int concentricCircleLevel = [self.animatedConcentricImageArray count] * channelRatio;
+	self.animatedConcentricImageView.image = self.animatedConcentricImageArray[concentricCircleLevel];
+	
 }
 
 - (IBAction)QRButtonTouchDown
@@ -131,6 +169,7 @@
 - (IBAction)QRButtonTouchUpInside
 {
 	self.scanButtonImageView.image = [UIImage imageNamed:@"scan-button-off.png"];
+	[self.player pause];
 }
 
 - (IBAction)playButtonTouchDown
@@ -145,8 +184,71 @@
 
 - (IBAction)playButtonTouchUpInside
 {
+	if (!self.player.isPlaying)
+	{
+		[self startPlaybackAnimations];
+		[self.player play];
+	}
+	else
+	{
+		[self stopPlaybackAnimations];
+		[self.player pause];
+	}
+}
+
+-(void)stopPlaybackAnimations
+{
+	[self.playerTimer invalidate];
+	[self.playbackMeteringTimer invalidate];
+	[self.animatedBarsImageView stopAnimating];
 	self.playButtonImageView.image = [UIImage imageNamed:@"play-pause-off.png"];
 }
 
+-(void)startPlaybackAnimations
+{
+	[self.animatedBarsImageView startAnimating];
+	// enable a timer to watch how far along the video is
+	self.playerTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+																											target:self
+																										selector:@selector(applyElapsedTime)
+																										userInfo:nil
+																										 repeats:YES];
+	self.playbackMeteringTimer = [NSTimer scheduledTimerWithTimeInterval:0.001
+																																target:self
+																															selector:@selector(applyPlaybackMeteringLevel)
+																															userInfo:nil
+																															 repeats:YES];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+	[super prepareForSegue:segue sender:sender];
+
+	if ([[segue identifier] isEqualToString:@"scannerSegue"])
+	{
+		// Get reference to the destination view controller
+		EACScannerViewController * scannerViewController = [segue destinationViewController];
+		scannerViewController.delegate = self;
+	}
+	
+}
+
+//AVAudioPlayer delegate methods
+-(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+	[self stopPlaybackAnimations];
+	self.animatedConcentricImageView.image = self.animatedConcentricImageArray[0];
+	self.elapsedImageView.image = self.elapsedVisualImageArray[[self.elapsedVisualImageArray count]-1];
+}
+
+-(void)audioPlayerBeginInterruption:(AVAudioPlayer *)player
+{
+	[self stopPlaybackAnimations];
+}
+
+-(void)audioPlayerEndInterruption:(AVAudioPlayer *)player withOptions:(NSUInteger)flags
+{
+	[self startPlaybackAnimations];
+}
 
 @end

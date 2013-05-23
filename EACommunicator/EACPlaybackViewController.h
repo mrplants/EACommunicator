@@ -10,4 +10,10 @@
 
 @interface EACPlaybackViewController : UIViewController
 
+//the name of the audio file that will be played
+@property (nonatomic, strong) NSString* audioFileName;
+
+//loads the audio file called "self.audiofileName
+-(void)loadAudioFile;
+
 @end
