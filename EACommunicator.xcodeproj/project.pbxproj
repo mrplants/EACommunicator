@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C52198D1750136000C2BF8A /* bars-vis-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C52198C1750136000C2BF8A /* bars-vis-0.png */; };
 		2C65BE49174E9EE200041E0F /* instructional cards 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE3A174E9EE200041E0F /* instructional cards 1.png */; };
 		2C65BE4A174E9EE200041E0F /* instructional cards 1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE3B174E9EE200041E0F /* instructional cards 1@2x.png */; };
 		2C65BE4B174E9EE200041E0F /* instructional cards 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE3C174E9EE200041E0F /* instructional cards 2.png */; };
@@ -127,6 +128,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C52198C1750136000C2BF8A /* bars-vis-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bars-vis-0.png"; sourceTree = "<group>"; };
 		2C65BE3A174E9EE200041E0F /* instructional cards 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "instructional cards 1.png"; path = "../instructional cards 1.png"; sourceTree = "<group>"; };
 		2C65BE3B174E9EE200041E0F /* instructional cards 1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "instructional cards 1@2x.png"; path = "../instructional cards 1@2x.png"; sourceTree = "<group>"; };
 		2C65BE3C174E9EE200041E0F /* instructional cards 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "instructional cards 2.png"; path = "../instructional cards 2.png"; sourceTree = "<group>"; };
@@ -550,6 +552,7 @@
 		2C754424174CF49300B353D0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2C52198C1750136000C2BF8A /* bars-vis-0.png */,
 				2C65BE3A174E9EE200041E0F /* instructional cards 1.png */,
 				2C65BE3B174E9EE200041E0F /* instructional cards 1@2x.png */,
 				2C65BE3C174E9EE200041E0F /* instructional cards 2.png */,
@@ -762,6 +765,7 @@
 				2C65BE55174E9EE200041E0F /* scanner-crosshairs-red.png in Resources */,
 				2C65BE56174E9EE200041E0F /* scanner-light-green.png in Resources */,
 				2C65BE57174E9EE200041E0F /* scanner-light-red.png in Resources */,
+				2C52198D1750136000C2BF8A /* bars-vis-0.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

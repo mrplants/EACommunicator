@@ -38,6 +38,7 @@
 //models
 //animated
 @property (nonatomic, strong) NSArray * animatedBarsImageArray;
+@property (nonatomic, strong) UIImage * flatBarImage;
 @property (nonatomic, strong) NSArray * animatedConcentricImageArray;
 //nonanimated
 @property (nonatomic, strong) NSArray * elapsedVisualImageArray;
@@ -50,6 +51,8 @@
 {
 	
 	//load the images
+	self.flatBarImage = [UIImage imageNamed:@"bars-vis-0.png"];
+	
 	self.animatedBarsImageArray =
 	@[[UIImage imageNamed:@"bars-vis-1.png"],
 	 [UIImage imageNamed:@"bars-vis-2.png"],
@@ -90,9 +93,9 @@
 	//setup the animations
 	self.animatedBarsImageView.animationImages = self.animatedBarsImageArray;
 	self.animatedBarsImageView.animationDuration = 0.5;
+	self.animatedBarsImageView.image = self.flatBarImage;
 	
 	self.animatedConcentricImageView.image = self.animatedConcentricImageArray[0];
-		
 	
 	[super viewDidLoad];
 }
