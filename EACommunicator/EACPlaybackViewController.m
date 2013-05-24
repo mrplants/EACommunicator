@@ -295,6 +295,7 @@
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
 {
 	[self stopPlaybackAnimations];
+	[self.player setCurrentTime:0];
 	self.animatedConcentricImageView.image = self.animatedConcentricImageArray[0];
 	self.elapsedImageView.image = self.elapsedVisualImageArray[[self.elapsedVisualImageArray count]-1];
 }
