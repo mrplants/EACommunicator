@@ -20,6 +20,7 @@
 
 //background
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
+@property (weak, nonatomic) IBOutlet UIView *resizeView;
 
 //buttons
 @property (weak, nonatomic) IBOutlet UIImageView *scanButtonImageView;
@@ -92,6 +93,7 @@
 	
 	self.animatedConcentricImageView.image = self.animatedConcentricImageArray[0];
 		
+	
 	[super viewDidLoad];
 }
 
@@ -118,7 +120,7 @@
 -(void)iPhone5Setup
 {//The iphone 5 has a longer screen, which cannot be accounted for in the storyboard setup, so we need to give it a different image and lay out the sub-images differently
 	self.backgroundImageView.image = [UIImage imageNamed:@"main screen-tall@2x.png"];
-	self.browserWindowImageView.frame = self.scanButtonImageView.frame = self.playButtonImageView.frame = self.elapsedImageView.frame = self.animatedBarsImageView.frame = self.animatedConcentricImageView.frame = self.trackNumberImageView.frame = CGRectMake(0, 44, self.scanButtonImageView.frame.size.width, self.scanButtonImageView.frame.size.height);
+	self.resizeView.frame = CGRectMake(0, 44, self.resizeView.frame.size.width, self.resizeView.frame.size.height);
 }
 
 -(void)loadAudioFile
@@ -150,38 +152,94 @@
 	
 	int concentricCircleLevel = [self.animatedConcentricImageArray count] * channelRatio;
 	self.animatedConcentricImageView.image = self.animatedConcentricImageArray[concentricCircleLevel];
-	
 }
 
-- (IBAction)QRButtonTouchDown
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	for (UITouch* touch in touches)
+	{
+		if ([self pointIsInsidePlayPauseButton:[touch locationInView:self.resizeView]]) [self playButtonTouchDown];
+		if ([self pointIsInsideQRScannerButton:[touch locationInView:self.resizeView]]) [self QRButtonTouchDown];
+	}
+	[super touchesBegan:touches withEvent:event];
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	for (UITouch* touch in touches)
+	{
+		if (![self pointIsInsidePlayPauseButton:[touch locationInView:self.resizeView]]) [self playButtonTouchUpOutside];
+		if (![self pointIsInsideQRScannerButton:[touch locationInView:self.resizeView]]) [self QRButtonTouchUpOutside];
+	}
+	[super touchesMoved:touches withEvent:event];
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	for (UITouch* touch in touches)
+	{
+		if ([self pointIsInsidePlayPauseButton:[touch locationInView:self.resizeView]]) [self playButtonTouchUpInside];
+		if ([self pointIsInsideQRScannerButton:[touch locationInView:self.resizeView]]) [self QRButtonTouchUpInside];
+	}
+	[super touchesEnded:touches withEvent:event];
+}
+
+
+
+-(BOOL)pointIsInsidePlayPauseButton:(CGPoint)point
+{
+	if ((point.x <= PLAYPAUSE_X + PLAYPAUSE_RADIUS &&
+			 point.x >= PLAYPAUSE_X - PLAYPAUSE_RADIUS) &&
+			(point.y <= PLAYPAUSE_Y + PLAYPAUSE_RADIUS &&
+			 point.y >= PLAYPAUSE_Y - PLAYPAUSE_RADIUS))
+	{
+		return YES;
+	}
+	return NO;
+}
+
+-(BOOL)pointIsInsideQRScannerButton:(CGPoint)point
+{
+	if ((point.x <= QR_X + QR_RADIUS &&
+			 point.x >= QR_X - QR_RADIUS) &&
+			(point.y <= QR_Y + QR_RADIUS &&
+			 point.y >= QR_Y - QR_RADIUS))
+	{
+		return YES;
+	}
+	return NO;
+}
+
+- (void)QRButtonTouchDown
 {
 	self.scanButtonImageView.image = [UIImage imageNamed:@"scan-button-on.png"];
 }
 
-- (IBAction)QRButtonTouchUpOutside
+- (void)QRButtonTouchUpOutside
 {
 	self.scanButtonImageView.image = [UIImage imageNamed:@"scan-button-off.png"];
 }
 
-- (IBAction)QRButtonTouchUpInside
+- (void)QRButtonTouchUpInside
 {
+	[self performSegueWithIdentifier:@"switchToScanner" sender:self];
 	self.scanButtonImageView.image = [UIImage imageNamed:@"scan-button-off.png"];
 	[self.player pause];
 }
 
-- (IBAction)playButtonTouchDown
+- (void)playButtonTouchDown
 {
 	self.playButtonImageView.image = [UIImage imageNamed:@"play-pause-on.png"];
 }
 
-- (IBAction)playButtonTouchUpOutside
+- (void)playButtonTouchUpOutside
 {
 	self.playButtonImageView.image = [UIImage imageNamed:@"play-pause-off.png"];
 }
 
-- (IBAction)playButtonTouchUpInside
+- (void)playButtonTouchUpInside
 {
-	if (!self.player.isPlaying)
+	if (!self.player.isPlaying && self.player)
 	{
 		[self startPlaybackAnimations];
 		[self.player play];
@@ -198,6 +256,7 @@
 	[self.playerTimer invalidate];
 	[self.playbackMeteringTimer invalidate];
 	[self.animatedBarsImageView stopAnimating];
+	self.animatedConcentricImageView.image = self.animatedConcentricImageArray[0];
 	self.playButtonImageView.image = [UIImage imageNamed:@"play-pause-off.png"];
 }
 
@@ -221,7 +280,7 @@
 {
 	[super prepareForSegue:segue sender:sender];
 
-	if ([[segue identifier] isEqualToString:@"scannerSegue"])
+	if ([[segue identifier] isEqualToString:@"switchToScanner"])
 	{
 		// Get reference to the destination view controller
 		EACScannerViewController * scannerViewController = [segue destinationViewController];

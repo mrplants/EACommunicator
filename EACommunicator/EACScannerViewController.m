@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *crosshairsImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *scannerLightImageView;
+@property (weak, nonatomic) IBOutlet UIView *resizingImageView;
 
 //visual models
 @property (strong, nonatomic) NSArray *crosshairImageArray;
@@ -27,6 +28,7 @@
 
 //camera equipment
 @property (weak, nonatomic) IBOutlet ZBarReaderView *zBarReaderView;
+@property (weak, nonatomic) IBOutlet UIView *cameraShutterView;
 
 //codes that we are looking for
 @property (nonatomic, strong) NSArray * codes;
@@ -99,7 +101,7 @@
 -(void)iPhone5Setup
 {	
 	//move the dynamic images down so they still line up with the slots in the background image
-	self.crosshairsImageView.frame = self.scannerLightImageView.frame = CGRectMake(0, 44, self.scannerLightImageView.frame.size.width, self.scannerLightImageView.frame.size.height);
+	self.resizingImageView.frame = CGRectMake(0, 44, self.resizingImageView.frame.size.width, self.resizingImageView.frame.size.height);
 	self.zBarReaderView.frame = CGRectMake(self.zBarReaderView.frame.origin.x, self.zBarReaderView.frame.origin.y + 44, self.zBarReaderView.frame.size.width, self.zBarReaderView.frame.size.height);
 }
 
@@ -114,20 +116,56 @@
 	
 }
 
+-(void) revealCamera
+{
+	[UIView animateWithDuration:.3
+												delay:.2
+											options:UIViewAnimationOptionTransitionCrossDissolve + UIViewAnimationOptionCurveEaseInOut
+									 animations:^(){
+										 self.cameraShutterView.alpha = 0;
+										 self.scannerLightImageView.alpha = 1;
+										 self.crosshairsImageView.alpha = 1;
+									 }
+									 completion:NULL];
+}
+
 - (IBAction)backButtonTapped
 {
-	[self dismissViewControllerAnimated:YES completion:nil];
+	UIViewController* destinationViewController = self.presentingViewController;
+	
+	CGRect mainFrame = self.view.frame;
+	
+	destinationViewController.view.frame = CGRectMake(0,
+																										-destinationViewController.view.frame.size.height,
+																										destinationViewController.view.frame.size.width,
+																										destinationViewController.view.frame.size.height);
+	
+	[self.view.superview addSubview:destinationViewController.view];
+	
+	[UIView animateWithDuration:TRANSITION_TIME
+												delay:0
+											options:UIViewAnimationOptionCurveEaseOut
+									 animations:^() {
+										 self.view.frame = CGRectMake(0,
+																																	self.view.frame.size.height,
+																																	self.view.frame.size.width,
+																																	self.view.frame.size.height);
+										 destinationViewController.view.frame = mainFrame;
+									 } completion:^(BOOL finished) {
+										 [self dismissViewControllerAnimated:NO completion:nil];
+									 }];
+
+	
 }
 
 - (void) viewDidAppear: (BOOL) animated
 {
 	[super viewDidAppear:animated];
 	// run the reader when the view is visible
-	self.scannerLightImageView.image = self.scannerLightImageArray[BLANK];
-	self.crosshairsImageView.image = self.crosshairImageArray[BLANK];
+//	self.scannerLightImageView.image = self.scannerLightImageArray[BLANK];
+//	self.crosshairsImageView.image = self.crosshairImageArray[BLANK];
 	[self.zBarReaderView start];
-	self.scannerLightImageView.image = self.scannerLightImageArray[RED];
-	self.crosshairsImageView.image = self.crosshairImageArray[RED];
+	[self revealCamera];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -160,17 +198,33 @@
 		 didReadSymbols: (ZBarSymbolSet*) syms
 					fromImage: (UIImage*) img
 {
-	// do something useful with results
 	for(ZBarSymbol *sym in syms) {
-		NSLog(@"%@", sym.data);
 		if ([self isCorrectCode:sym.data])
 		{
-			self.scannerLightImageView.image = self.scannerLightImageArray[GREEN];
-			self.crosshairsImageView.image = self.crosshairImageArray[GREEN];
 			EACPlaybackViewController* playerViewController = self.delegate;
 			playerViewController.audioFileName = [NSString stringWithFormat:@"ea_duotr%@",sym.data];
 			[playerViewController loadAudioFile];
-			[self dismissViewControllerAnimated:YES completion:NULL];
+			[UIView animateWithDuration:.05
+														delay:0
+													options:UIViewAnimationOptionCurveEaseIn
+											 animations:^(void) {
+												 self.scannerLightImageView.alpha = 0;
+												 self.crosshairsImageView.alpha = 0;
+											 }
+											 completion:^(BOOL finished){
+												 self.scannerLightImageView.image = self.scannerLightImageArray[GREEN];
+												 self.crosshairsImageView.image = self.crosshairImageArray[GREEN];
+												 [UIView animateWithDuration:.05
+																							 delay:0
+																						 options:UIViewAnimationOptionCurveEaseOut
+																					animations:^(){
+																						self.scannerLightImageView.alpha = 1;
+																						self.crosshairsImageView.alpha = 1;
+																					} completion:^(BOOL finished){
+																						[NSThread sleepForTimeInterval:0.45f];
+																						[self backButtonTapped];
+																					}];
+											 }];
 		}
 		break;
 	}
