@@ -127,7 +127,6 @@
 {
 	NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: [[NSBundle mainBundle] pathForResource:self.audioFileName
 																																											 ofType:@"mp3"]];
-	NSLog(@"url: %@", fileURL);
 	self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
 	self.player.meteringEnabled = YES;
 	
