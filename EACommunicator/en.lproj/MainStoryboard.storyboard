@@ -38,7 +38,7 @@
                                     <constraint firstAttribute="height" constant="480" type="user" id="voo-yn-Nvz"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="browser-window-layout.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ic8-92-qBG">
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="browser-window-layout.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ic8-92-qBG">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="480" type="user" id="geS-D7-R6n"/>
                                     <constraint firstAttribute="width" constant="320" type="user" id="jFx-Ns-SJI"/>
@@ -148,6 +148,7 @@
                         <outlet property="elapsedImageView" destination="LGh-ay-zSP" id="a75-b4-dCM"/>
                         <outlet property="playButtonImageView" destination="qHe-ud-NY9" id="HqQ-MR-VOn"/>
                         <outlet property="scanButtonImageView" destination="i22-DL-4if" id="G24-nm-2tE"/>
+                        <outlet property="trackNumberImageView" destination="reN-Vc-WvO" id="GME-uZ-tfu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -169,52 +170,23 @@
                                     <constraint firstAttribute="width" constant="250" type="user" id="P9j-6V-mJQ"/>
                                 </constraints>
                             </view>
-                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="scanner screen@2x.png" translatesAutoresizingMaskIntoConstraints="NO" id="p6b-xo-TOk"/>
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="scanner screen.png" translatesAutoresizingMaskIntoConstraints="NO" id="p6b-xo-TOk"/>
                             <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="scanner-crosshairs-blank.png" translatesAutoresizingMaskIntoConstraints="NO" id="biU-Hg-B75">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" type="user" id="hYb-ST-2IY"/>
                                     <constraint firstAttribute="height" constant="480" type="user" id="uku-zp-Gh9"/>
                                 </constraints>
                             </imageView>
-                            <imageView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="scanner-light-off.png" translatesAutoresizingMaskIntoConstraints="NO" id="p1R-yX-hV1">
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="scanner-light-off.png" translatesAutoresizingMaskIntoConstraints="NO" id="p1R-yX-hV1">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="480" type="user" id="UKa-Jc-OSS"/>
                                     <constraint firstAttribute="width" constant="320" type="user" id="V1b-nf-jqi"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Smu-eB-bVw">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="edb-h6-axo"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="nextScannerButton" destination="dRl-SC-vG4" eventType="touchUpInside" id="6no-1x-0gq"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sU-NX-4Tt">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="vxe-gI-Lz7"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="nextLightButton" destination="dRl-SC-vG4" eventType="touchUpInside" id="llq-UV-thd"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SUg-bz-XRx">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="mTT-XP-OIx"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -232,16 +204,11 @@
                         <constraints>
                             <constraint firstItem="p1R-yX-hV1" firstAttribute="trailing" secondItem="yS0-kj-J4b" secondAttribute="trailing" type="user" id="0CP-bm-686"/>
                             <constraint firstItem="p1R-yX-hV1" firstAttribute="leading" secondItem="yS0-kj-J4b" secondAttribute="leading" type="user" id="6E7-EZ-YwU"/>
-                            <constraint firstItem="p6b-xo-TOk" firstAttribute="trailing" secondItem="yS0-kj-J4b" secondAttribute="trailing" type="default" id="6YF-Jc-chL"/>
-                            <constraint firstItem="Smu-eB-bVw" firstAttribute="leading" secondItem="yS0-kj-J4b" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="BIb-bW-Vwu"/>
                             <constraint firstItem="p1R-yX-hV1" firstAttribute="top" secondItem="yS0-kj-J4b" secondAttribute="top" type="user" id="E3U-gK-2Ot"/>
-                            <constraint firstAttribute="trailing" secondItem="5sU-NX-4Tt" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="K0P-mu-8rc"/>
-                            <constraint firstItem="p6b-xo-TOk" firstAttribute="top" secondItem="yS0-kj-J4b" secondAttribute="top" type="default" id="Oib-Ax-WHd"/>
-                            <constraint firstItem="p6b-xo-TOk" firstAttribute="bottom" secondItem="yS0-kj-J4b" secondAttribute="bottom" type="default" id="PDf-t7-RYJ"/>
-                            <constraint firstItem="p6b-xo-TOk" firstAttribute="leading" secondItem="yS0-kj-J4b" secondAttribute="leading" type="default" id="SgW-dT-Ywl"/>
-                            <constraint firstItem="Smu-eB-bVw" firstAttribute="top" secondItem="yS0-kj-J4b" secondAttribute="top" constant="21" id="TBQ-3L-6Xb"/>
-                            <constraint firstItem="5sU-NX-4Tt" firstAttribute="leading" secondItem="SUg-bz-XRx" secondAttribute="leading" type="default" id="UvG-s7-uWr"/>
-                            <constraint firstItem="Smu-eB-bVw" firstAttribute="top" secondItem="5sU-NX-4Tt" secondAttribute="top" type="default" id="ZPN-Xn-Ut8"/>
+                            <constraint firstItem="p6b-xo-TOk" firstAttribute="trailing" secondItem="yS0-kj-J4b" secondAttribute="trailing" type="user" id="H5W-wi-oHE"/>
+                            <constraint firstItem="p6b-xo-TOk" firstAttribute="top" secondItem="yS0-kj-J4b" secondAttribute="top" type="user" id="Oib-Ax-WHd"/>
+                            <constraint firstItem="p6b-xo-TOk" firstAttribute="leading" secondItem="yS0-kj-J4b" secondAttribute="leading" type="user" id="SgW-dT-Ywl"/>
+                            <constraint firstItem="p6b-xo-TOk" firstAttribute="bottom" secondItem="yS0-kj-J4b" secondAttribute="bottom" type="user" id="dLX-GG-NL3"/>
                             <constraint firstAttribute="bottom" secondItem="SUg-bz-XRx" secondAttribute="bottom" constant="19" id="ktj-Cf-aei"/>
                             <constraint firstItem="HlF-hl-KBw" firstAttribute="top" secondItem="yS0-kj-J4b" secondAttribute="top" constant="47" type="user" id="lZx-hw-Cm6"/>
                             <constraint firstAttribute="trailing" secondItem="SUg-bz-XRx" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="m3i-OL-9Ij"/>
@@ -275,7 +242,7 @@
                         <subviews>
                             <scrollView clipsSubviews="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sBX-2q-IrQ">
                                 <subviews>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="instructional cards 1.png" translatesAutoresizingMaskIntoConstraints="NO" id="WQR-ZP-EmV">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" image="instructional cards 1.png" translatesAutoresizingMaskIntoConstraints="NO" id="WQR-ZP-EmV">
                                         <constraints>
                                             <constraint firstAttribute="height" constant="248" id="dTO-vr-kdu"/>
                                         </constraints>
@@ -284,7 +251,6 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="WQR-ZP-EmV" secondAttribute="bottom" constant="116" id="8ke-zG-BbS"/>
-                                    <constraint firstItem="WQR-ZP-EmV" firstAttribute="centerX" secondItem="sBX-2q-IrQ" secondAttribute="centerX" type="default" id="CXM-B7-Wu8"/>
                                     <constraint firstItem="WQR-ZP-EmV" firstAttribute="leading" secondItem="sBX-2q-IrQ" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="QU0-RA-Hsy"/>
                                     <constraint firstItem="WQR-ZP-EmV" firstAttribute="centerY" secondItem="sBX-2q-IrQ" secondAttribute="centerY" type="default" id="Xxu-yW-Z4J"/>
                                     <constraint firstAttribute="trailing" secondItem="WQR-ZP-EmV" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="h8X-pm-jEJ"/>
@@ -309,7 +275,6 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="backButtonTapped" destination="dRl-SC-vG4" eventType="touchUpInside" id="zqG-eP-HSB"/>
                                     <action selector="goBackButton" destination="5XV-tI-r5D" eventType="touchUpInside" id="jAz-0w-OfG"/>
                                 </connections>
                             </button>
@@ -319,11 +284,11 @@
                             <constraint firstItem="0c6-VC-A2I" firstAttribute="leading" secondItem="Ffp-HO-dhm" secondAttribute="leading" type="default" id="2qK-jK-pgI"/>
                             <constraint firstItem="sBX-2q-IrQ" firstAttribute="bottom" secondItem="Ffp-HO-dhm" secondAttribute="bottom" type="default" id="Dyt-xj-4dA"/>
                             <constraint firstItem="0c6-VC-A2I" firstAttribute="trailing" secondItem="Ffp-HO-dhm" secondAttribute="trailing" type="default" id="Kz6-9o-9d5"/>
-                            <constraint firstItem="tVd-PJ-ecZ" firstAttribute="top" secondItem="Ffp-HO-dhm" secondAttribute="top" constant="218" id="Qbj-1k-jWj"/>
+                            <constraint firstItem="tVd-PJ-ecZ" firstAttribute="centerX" secondItem="0c6-VC-A2I" secondAttribute="centerX" type="default" id="egD-II-flZ"/>
                             <constraint firstItem="sBX-2q-IrQ" firstAttribute="top" secondItem="Ffp-HO-dhm" secondAttribute="top" type="default" id="gqf-BQ-cAg"/>
                             <constraint firstItem="sBX-2q-IrQ" firstAttribute="trailing" secondItem="Ffp-HO-dhm" secondAttribute="trailing" type="default" id="sGv-g2-gay"/>
+                            <constraint firstItem="tVd-PJ-ecZ" firstAttribute="top" secondItem="Ffp-HO-dhm" secondAttribute="top" constant="218" id="xZQ-d7-eMp"/>
                             <constraint firstItem="0c6-VC-A2I" firstAttribute="bottom" secondItem="Ffp-HO-dhm" secondAttribute="bottom" type="default" id="yWU-wR-p6K"/>
-                            <constraint firstItem="tVd-PJ-ecZ" firstAttribute="centerX" secondItem="0c6-VC-A2I" secondAttribute="centerX" type="default" id="zcB-Rv-SKv"/>
                         </constraints>
                     </view>
                     <connections>
@@ -342,11 +307,11 @@
         <image name="browser-window-layout.png" width="640" height="960"/>
         <image name="concentricvis4.png" width="640" height="960"/>
         <image name="elapsed6.png" width="640" height="960"/>
-        <image name="instructional cards 1.png" width="580" height="510"/>
+        <image name="instructional cards 1.png" width="280" height="245"/>
         <image name="main screen.png" width="320" height="480"/>
         <image name="play-pause-off.png" width="640" height="960"/>
         <image name="scan-button-off.png" width="640" height="960"/>
-        <image name="scanner screen@2x.png" width="640" height="960"/>
+        <image name="scanner screen.png" width="320" height="480"/>
         <image name="scanner-crosshairs-blank.png" width="640" height="960"/>
         <image name="scanner-light-off.png" width="640" height="960"/>
         <image name="track02.png" width="640" height="960"/>
@@ -355,6 +320,7 @@
         <class className="EACInstructionViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/EACInstructionViewController.h"/>
             <relationships>
+                <relationship kind="action" name="changePage:"/>
                 <relationship kind="outlet" name="instructionImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="instructionPageControl" candidateClass="UIPageControl"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
@@ -368,9 +334,9 @@
                 <relationship kind="outlet" name="backgroundImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="browserWindowImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="elapsedImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="elapsedTimeSlider" candidateClass="UISlider"/>
                 <relationship kind="outlet" name="playButtonImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="scanButtonImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="trackNumberImageView" candidateClass="UIImageView"/>
             </relationships>
         </class>
         <class className="EACScannerViewController" superclassName="UIViewController">

@@ -31,6 +31,7 @@
 
 -(void)viewDidLoad
 {
+	[self.instructionImageView setHidden:YES];
 	[super viewDidLoad];
 	self.instructionImageArray = @[[UIImage imageNamed:@"instructional cards 1.png"],
 																[UIImage imageNamed:@"instructional cards 2.png"],

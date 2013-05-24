@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C65BE49174E9EE200041E0F /* instructional cards 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE3A174E9EE200041E0F /* instructional cards 1.png */; };
+		2C65BE4A174E9EE200041E0F /* instructional cards 1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE3B174E9EE200041E0F /* instructional cards 1@2x.png */; };
+		2C65BE4B174E9EE200041E0F /* instructional cards 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE3C174E9EE200041E0F /* instructional cards 2.png */; };
+		2C65BE4C174E9EE200041E0F /* instructional cards 2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE3D174E9EE200041E0F /* instructional cards 2@2x.png */; };
+		2C65BE4D174E9EE200041E0F /* instructional cards 3.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE3E174E9EE200041E0F /* instructional cards 3.png */; };
+		2C65BE4E174E9EE200041E0F /* instructional cards 3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE3F174E9EE200041E0F /* instructional cards 3@2x.png */; };
+		2C65BE4F174E9EE200041E0F /* play-pause-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE40174E9EE200041E0F /* play-pause-off.png */; };
+		2C65BE50174E9EE200041E0F /* play-pause-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE41174E9EE200041E0F /* play-pause-on.png */; };
+		2C65BE51174E9EE200041E0F /* scan-button-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE42174E9EE200041E0F /* scan-button-off.png */; };
+		2C65BE52174E9EE200041E0F /* scan-button-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE43174E9EE200041E0F /* scan-button-on.png */; };
+		2C65BE53174E9EE200041E0F /* scanner screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE44174E9EE200041E0F /* scanner screen.png */; };
+		2C65BE54174E9EE200041E0F /* scanner-crosshairs-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE45174E9EE200041E0F /* scanner-crosshairs-green.png */; };
+		2C65BE55174E9EE200041E0F /* scanner-crosshairs-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE46174E9EE200041E0F /* scanner-crosshairs-red.png */; };
+		2C65BE56174E9EE200041E0F /* scanner-light-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE47174E9EE200041E0F /* scanner-light-green.png */; };
+		2C65BE57174E9EE200041E0F /* scanner-light-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE48174E9EE200041E0F /* scanner-light-red.png */; };
 		2C712591174DE87C008788AB /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C71258B174DE87C008788AB /* libzbar.a */; };
 		2C712592174DE87C008788AB /* zbar-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C71258D174DE87C008788AB /* zbar-back.png */; };
 		2C712593174DE87C008788AB /* zbar-help.html in Resources */ = {isa = PBXBuildFile; fileRef = 2C71258E174DE87C008788AB /* zbar-help.html */; };
@@ -102,26 +117,15 @@
 		2C754467174CF4F700B353D0 /* main screen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75443D174CF4F700B353D0 /* main screen@2x.png */; };
 		2C754468174CF4F700B353D0 /* main screen-tall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75443E174CF4F700B353D0 /* main screen-tall@2x.png */; };
 		2C754469174CF4F700B353D0 /* main screen ORIG.tif in Resources */ = {isa = PBXBuildFile; fileRef = 2C75443F174CF4F700B353D0 /* main screen ORIG.tif */; };
-		2C75446A174CF4F700B353D0 /* play-pause-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754440174CF4F700B353D0 /* play-pause-off.png */; };
-		2C75446B174CF4F700B353D0 /* play-pause-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754441174CF4F700B353D0 /* play-pause-on.png */; };
-		2C75446C174CF4F700B353D0 /* scan-button-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754442174CF4F700B353D0 /* scan-button-off.png */; };
-		2C75446D174CF4F700B353D0 /* scan-button-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754443174CF4F700B353D0 /* scan-button-on.png */; };
 		2C75446E174CF4F700B353D0 /* scanner screen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754444174CF4F700B353D0 /* scanner screen@2x.png */; };
 		2C75446F174CF4F700B353D0 /* scanner screen-tall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754445174CF4F700B353D0 /* scanner screen-tall@2x.png */; };
 		2C754470174CF4F700B353D0 /* scanner screen ORIG.tif in Resources */ = {isa = PBXBuildFile; fileRef = 2C754446174CF4F700B353D0 /* scanner screen ORIG.tif */; };
 		2C754471174CF4F700B353D0 /* scanner-crosshairs-blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754447174CF4F700B353D0 /* scanner-crosshairs-blank.png */; };
-		2C754472174CF4F700B353D0 /* scanner-crosshairs-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754448174CF4F700B353D0 /* scanner-crosshairs-green.png */; };
-		2C754473174CF4F700B353D0 /* scanner-crosshairs-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754449174CF4F700B353D0 /* scanner-crosshairs-red.png */; };
-		2C754474174CF4F700B353D0 /* scanner-light-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75444A174CF4F700B353D0 /* scanner-light-green.png */; };
 		2C754475174CF4F700B353D0 /* scanner-light-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75444B174CF4F700B353D0 /* scanner-light-off.png */; };
-		2C754476174CF4F700B353D0 /* scanner-light-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75444C174CF4F700B353D0 /* scanner-light-red.png */; };
 		2C754477174CF4F700B353D0 /* track01.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75444D174CF4F700B353D0 /* track01.png */; };
 		2C754478174CF4F700B353D0 /* track02.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75444E174CF4F700B353D0 /* track02.png */; };
 		2C75447A174CFAC700B353D0 /* icon01-57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754479174CFAC700B353D0 /* icon01-57x57.png */; };
 		2C75447C174CFACB00B353D0 /* icon01-114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75447B174CFACB00B353D0 /* icon01-114x114.png */; };
-		2C754480174CFBD300B353D0 /* instructional cards 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75447D174CFBD300B353D0 /* instructional cards 1.png */; };
-		2C754481174CFBD300B353D0 /* instructional cards 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75447E174CFBD300B353D0 /* instructional cards 2.png */; };
-		2C754482174CFBD300B353D0 /* instructional cards 3.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75447F174CFBD300B353D0 /* instructional cards 3.png */; };
 		2C75448A174D006800B353D0 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754489174D006800B353D0 /* Default@2x.png */; };
 		2C754490174D068F00B353D0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75448F174D068F00B353D0 /* Default-568h@2x.png */; };
 		2CD7E0C8174D766E0062D951 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CD7E0C7174D766E0062D951 /* Default.png */; };
@@ -132,6 +136,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C65BE3A174E9EE200041E0F /* instructional cards 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "instructional cards 1.png"; path = "../instructional cards 1.png"; sourceTree = "<group>"; };
+		2C65BE3B174E9EE200041E0F /* instructional cards 1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "instructional cards 1@2x.png"; path = "../instructional cards 1@2x.png"; sourceTree = "<group>"; };
+		2C65BE3C174E9EE200041E0F /* instructional cards 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "instructional cards 2.png"; path = "../instructional cards 2.png"; sourceTree = "<group>"; };
+		2C65BE3D174E9EE200041E0F /* instructional cards 2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "instructional cards 2@2x.png"; path = "../instructional cards 2@2x.png"; sourceTree = "<group>"; };
+		2C65BE3E174E9EE200041E0F /* instructional cards 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "instructional cards 3.png"; path = "../instructional cards 3.png"; sourceTree = "<group>"; };
+		2C65BE3F174E9EE200041E0F /* instructional cards 3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "instructional cards 3@2x.png"; path = "../instructional cards 3@2x.png"; sourceTree = "<group>"; };
+		2C65BE40174E9EE200041E0F /* play-pause-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "play-pause-off.png"; path = "../play-pause-off.png"; sourceTree = "<group>"; };
+		2C65BE41174E9EE200041E0F /* play-pause-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "play-pause-on.png"; path = "../play-pause-on.png"; sourceTree = "<group>"; };
+		2C65BE42174E9EE200041E0F /* scan-button-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scan-button-off.png"; path = "../scan-button-off.png"; sourceTree = "<group>"; };
+		2C65BE43174E9EE200041E0F /* scan-button-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scan-button-on.png"; path = "../scan-button-on.png"; sourceTree = "<group>"; };
+		2C65BE44174E9EE200041E0F /* scanner screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scanner screen.png"; path = "../scanner screen.png"; sourceTree = "<group>"; };
+		2C65BE45174E9EE200041E0F /* scanner-crosshairs-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scanner-crosshairs-green.png"; path = "../scanner-crosshairs-green.png"; sourceTree = "<group>"; };
+		2C65BE46174E9EE200041E0F /* scanner-crosshairs-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scanner-crosshairs-red.png"; path = "../scanner-crosshairs-red.png"; sourceTree = "<group>"; };
+		2C65BE47174E9EE200041E0F /* scanner-light-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scanner-light-green.png"; path = "../scanner-light-green.png"; sourceTree = "<group>"; };
+		2C65BE48174E9EE200041E0F /* scanner-light-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scanner-light-red.png"; path = "../scanner-light-red.png"; sourceTree = "<group>"; };
 		2C712577174DE87B008788AB /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
 		2C712578174DE87B008788AB /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
 		2C712579174DE87B008788AB /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
@@ -253,26 +272,15 @@
 		2C75443D174CF4F700B353D0 /* main screen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main screen@2x.png"; sourceTree = "<group>"; };
 		2C75443E174CF4F700B353D0 /* main screen-tall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main screen-tall@2x.png"; sourceTree = "<group>"; };
 		2C75443F174CF4F700B353D0 /* main screen ORIG.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "main screen ORIG.tif"; sourceTree = "<group>"; };
-		2C754440174CF4F700B353D0 /* play-pause-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-pause-off.png"; sourceTree = "<group>"; };
-		2C754441174CF4F700B353D0 /* play-pause-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-pause-on.png"; sourceTree = "<group>"; };
-		2C754442174CF4F700B353D0 /* scan-button-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan-button-off.png"; sourceTree = "<group>"; };
-		2C754443174CF4F700B353D0 /* scan-button-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan-button-on.png"; sourceTree = "<group>"; };
 		2C754444174CF4F700B353D0 /* scanner screen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanner screen@2x.png"; sourceTree = "<group>"; };
 		2C754445174CF4F700B353D0 /* scanner screen-tall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanner screen-tall@2x.png"; sourceTree = "<group>"; };
 		2C754446174CF4F700B353D0 /* scanner screen ORIG.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "scanner screen ORIG.tif"; sourceTree = "<group>"; };
 		2C754447174CF4F700B353D0 /* scanner-crosshairs-blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanner-crosshairs-blank.png"; sourceTree = "<group>"; };
-		2C754448174CF4F700B353D0 /* scanner-crosshairs-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanner-crosshairs-green.png"; sourceTree = "<group>"; };
-		2C754449174CF4F700B353D0 /* scanner-crosshairs-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanner-crosshairs-red.png"; sourceTree = "<group>"; };
-		2C75444A174CF4F700B353D0 /* scanner-light-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanner-light-green.png"; sourceTree = "<group>"; };
 		2C75444B174CF4F700B353D0 /* scanner-light-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanner-light-off.png"; sourceTree = "<group>"; };
-		2C75444C174CF4F700B353D0 /* scanner-light-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanner-light-red.png"; sourceTree = "<group>"; };
 		2C75444D174CF4F700B353D0 /* track01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = track01.png; sourceTree = "<group>"; };
 		2C75444E174CF4F700B353D0 /* track02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = track02.png; sourceTree = "<group>"; };
 		2C754479174CFAC700B353D0 /* icon01-57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon01-57x57.png"; path = "../icon01-57x57.png"; sourceTree = "<group>"; };
 		2C75447B174CFACB00B353D0 /* icon01-114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon01-114x114.png"; path = "../icon01-114x114.png"; sourceTree = "<group>"; };
-		2C75447D174CFBD300B353D0 /* instructional cards 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instructional cards 1.png"; sourceTree = "<group>"; };
-		2C75447E174CFBD300B353D0 /* instructional cards 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instructional cards 2.png"; sourceTree = "<group>"; };
-		2C75447F174CFBD300B353D0 /* instructional cards 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instructional cards 3.png"; sourceTree = "<group>"; };
 		2C754489174D006800B353D0 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
 		2C75448F174D068F00B353D0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		2CD7E0C6174D704C0062D951 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -304,6 +312,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C65BE39174E9E8D00041E0F /* new images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "new images";
+			sourceTree = "<group>";
+		};
 		2C712573174DE87B008788AB /* ZBarSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,6 +494,7 @@
 		2C7543EE174CF06D00B353D0 = {
 			isa = PBXGroup;
 			children = (
+				2C65BE39174E9E8D00041E0F /* new images */,
 				2C754400174CF06D00B353D0 /* EACommunicator */,
 				2C7543F9174CF06D00B353D0 /* Frameworks */,
 				2C712573174DE87B008788AB /* ZBarSDK */,
@@ -551,14 +567,26 @@
 		2C754424174CF49300B353D0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2C65BE3A174E9EE200041E0F /* instructional cards 1.png */,
+				2C65BE3B174E9EE200041E0F /* instructional cards 1@2x.png */,
+				2C65BE3C174E9EE200041E0F /* instructional cards 2.png */,
+				2C65BE3D174E9EE200041E0F /* instructional cards 2@2x.png */,
+				2C65BE3E174E9EE200041E0F /* instructional cards 3.png */,
+				2C65BE3F174E9EE200041E0F /* instructional cards 3@2x.png */,
+				2C65BE40174E9EE200041E0F /* play-pause-off.png */,
+				2C65BE41174E9EE200041E0F /* play-pause-on.png */,
+				2C65BE42174E9EE200041E0F /* scan-button-off.png */,
+				2C65BE43174E9EE200041E0F /* scan-button-on.png */,
+				2C65BE44174E9EE200041E0F /* scanner screen.png */,
+				2C65BE45174E9EE200041E0F /* scanner-crosshairs-green.png */,
+				2C65BE46174E9EE200041E0F /* scanner-crosshairs-red.png */,
+				2C65BE47174E9EE200041E0F /* scanner-light-green.png */,
+				2C65BE48174E9EE200041E0F /* scanner-light-red.png */,
 				2CD7E0C7174D766E0062D951 /* Default.png */,
 				2C75448F174D068F00B353D0 /* Default-568h@2x.png */,
 				2C754489174D006800B353D0 /* Default@2x.png */,
 				2C75447B174CFACB00B353D0 /* icon01-114x114.png */,
 				2C754479174CFAC700B353D0 /* icon01-57x57.png */,
-				2C75447D174CFBD300B353D0 /* instructional cards 1.png */,
-				2C75447E174CFBD300B353D0 /* instructional cards 2.png */,
-				2C75447F174CFBD300B353D0 /* instructional cards 3.png */,
 				2C754425174CF4F700B353D0 /* bars-vis-1.png */,
 				2C754426174CF4F700B353D0 /* bars-vis-2.png */,
 				2C754427174CF4F700B353D0 /* bars-vis-3.png */,
@@ -586,19 +614,11 @@
 				2C75443D174CF4F700B353D0 /* main screen@2x.png */,
 				2C75443E174CF4F700B353D0 /* main screen-tall@2x.png */,
 				2C75443F174CF4F700B353D0 /* main screen ORIG.tif */,
-				2C754440174CF4F700B353D0 /* play-pause-off.png */,
-				2C754441174CF4F700B353D0 /* play-pause-on.png */,
-				2C754442174CF4F700B353D0 /* scan-button-off.png */,
-				2C754443174CF4F700B353D0 /* scan-button-on.png */,
 				2C754444174CF4F700B353D0 /* scanner screen@2x.png */,
 				2C754445174CF4F700B353D0 /* scanner screen-tall@2x.png */,
 				2C754446174CF4F700B353D0 /* scanner screen ORIG.tif */,
 				2C754447174CF4F700B353D0 /* scanner-crosshairs-blank.png */,
-				2C754448174CF4F700B353D0 /* scanner-crosshairs-green.png */,
-				2C754449174CF4F700B353D0 /* scanner-crosshairs-red.png */,
-				2C75444A174CF4F700B353D0 /* scanner-light-green.png */,
 				2C75444B174CF4F700B353D0 /* scanner-light-off.png */,
-				2C75444C174CF4F700B353D0 /* scanner-light-red.png */,
 				2C75444D174CF4F700B353D0 /* track01.png */,
 				2C75444E174CF4F700B353D0 /* track02.png */,
 			);
@@ -686,26 +706,15 @@
 				2C754467174CF4F700B353D0 /* main screen@2x.png in Resources */,
 				2C754468174CF4F700B353D0 /* main screen-tall@2x.png in Resources */,
 				2C754469174CF4F700B353D0 /* main screen ORIG.tif in Resources */,
-				2C75446A174CF4F700B353D0 /* play-pause-off.png in Resources */,
-				2C75446B174CF4F700B353D0 /* play-pause-on.png in Resources */,
-				2C75446C174CF4F700B353D0 /* scan-button-off.png in Resources */,
-				2C75446D174CF4F700B353D0 /* scan-button-on.png in Resources */,
 				2C75446E174CF4F700B353D0 /* scanner screen@2x.png in Resources */,
 				2C75446F174CF4F700B353D0 /* scanner screen-tall@2x.png in Resources */,
 				2C754470174CF4F700B353D0 /* scanner screen ORIG.tif in Resources */,
 				2C754471174CF4F700B353D0 /* scanner-crosshairs-blank.png in Resources */,
-				2C754472174CF4F700B353D0 /* scanner-crosshairs-green.png in Resources */,
-				2C754473174CF4F700B353D0 /* scanner-crosshairs-red.png in Resources */,
-				2C754474174CF4F700B353D0 /* scanner-light-green.png in Resources */,
 				2C754475174CF4F700B353D0 /* scanner-light-off.png in Resources */,
-				2C754476174CF4F700B353D0 /* scanner-light-red.png in Resources */,
 				2C754477174CF4F700B353D0 /* track01.png in Resources */,
 				2C754478174CF4F700B353D0 /* track02.png in Resources */,
 				2C75447A174CFAC700B353D0 /* icon01-57x57.png in Resources */,
 				2C75447C174CFACB00B353D0 /* icon01-114x114.png in Resources */,
-				2C754480174CFBD300B353D0 /* instructional cards 1.png in Resources */,
-				2C754481174CFBD300B353D0 /* instructional cards 2.png in Resources */,
-				2C754482174CFBD300B353D0 /* instructional cards 3.png in Resources */,
 				2C75448A174D006800B353D0 /* Default@2x.png in Resources */,
 				2C754490174D068F00B353D0 /* Default-568h@2x.png in Resources */,
 				2CD7E0C8174D766E0062D951 /* Default.png in Resources */,
@@ -765,6 +774,21 @@
 				2C71268A174E6416008788AB /* ea_duotr7_LO5.mp3 in Resources */,
 				2C71268B174E6416008788AB /* ea_duotr8_LO6.mp3 in Resources */,
 				2C71268E174E66AA008788AB /* EACommunicatorAudioDataModel.csv in Resources */,
+				2C65BE49174E9EE200041E0F /* instructional cards 1.png in Resources */,
+				2C65BE4A174E9EE200041E0F /* instructional cards 1@2x.png in Resources */,
+				2C65BE4B174E9EE200041E0F /* instructional cards 2.png in Resources */,
+				2C65BE4C174E9EE200041E0F /* instructional cards 2@2x.png in Resources */,
+				2C65BE4D174E9EE200041E0F /* instructional cards 3.png in Resources */,
+				2C65BE4E174E9EE200041E0F /* instructional cards 3@2x.png in Resources */,
+				2C65BE4F174E9EE200041E0F /* play-pause-off.png in Resources */,
+				2C65BE50174E9EE200041E0F /* play-pause-on.png in Resources */,
+				2C65BE51174E9EE200041E0F /* scan-button-off.png in Resources */,
+				2C65BE52174E9EE200041E0F /* scan-button-on.png in Resources */,
+				2C65BE53174E9EE200041E0F /* scanner screen.png in Resources */,
+				2C65BE54174E9EE200041E0F /* scanner-crosshairs-green.png in Resources */,
+				2C65BE55174E9EE200041E0F /* scanner-crosshairs-red.png in Resources */,
+				2C65BE56174E9EE200041E0F /* scanner-light-green.png in Resources */,
+				2C65BE57174E9EE200041E0F /* scanner-light-red.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -28,6 +28,7 @@
 //info. visuals
 @property (weak, nonatomic) IBOutlet UIImageView *elapsedImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *browserWindowImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *trackNumberImageView;
 
 //dynamic visuals
 @property (weak, nonatomic) IBOutlet UIImageView *animatedBarsImageView;
@@ -39,10 +40,6 @@
 @property (nonatomic, strong) NSArray * animatedConcentricImageArray;
 //nonanimated
 @property (nonatomic, strong) NSArray * elapsedVisualImageArray;
-
-//physical objects
-@property (weak, nonatomic) IBOutlet UISlider *elapsedTimeSlider;
-
 
 @end
 
@@ -121,7 +118,7 @@
 -(void)iPhone5Setup
 {//The iphone 5 has a longer screen, which cannot be accounted for in the storyboard setup, so we need to give it a different image and lay out the sub-images differently
 	self.backgroundImageView.image = [UIImage imageNamed:@"main screen-tall@2x.png"];
-	self.browserWindowImageView.frame = self.scanButtonImageView.frame = self.playButtonImageView.frame = self.elapsedImageView.frame = self.animatedBarsImageView.frame = self.animatedConcentricImageView.frame = CGRectMake(0, 44, self.scanButtonImageView.frame.size.width, self.scanButtonImageView.frame.size.height);
+	self.browserWindowImageView.frame = self.scanButtonImageView.frame = self.playButtonImageView.frame = self.elapsedImageView.frame = self.animatedBarsImageView.frame = self.animatedConcentricImageView.frame = self.trackNumberImageView.frame = CGRectMake(0, 44, self.scanButtonImageView.frame.size.width, self.scanButtonImageView.frame.size.height);
 }
 
 -(void)loadAudioFile
@@ -136,11 +133,11 @@
 
 -(void)applyElapsedTime
 {
-	NSTimeInterval timeLeft = self.player.duration - self.player.currentTime;
+	//NSTimeInterval timeLeft = self.player.duration - self.player.currentTime;
 	
 	// update your UI with timeLeft
 
-	int elapsedTimeIncrement = self.player.currentTime / self.player.duration * 8;
+	int elapsedTimeIncrement = (self.player) ? (self.player.currentTime / self.player.duration * 8) : (0);
 	
 	self.elapsedImageView.image = self.elapsedVisualImageArray[elapsedTimeIncrement];
 }

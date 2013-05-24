@@ -40,6 +40,7 @@
 
 -(void)viewDidLoad
 {
+	[ZBarReaderView class];
 	[super viewDidLoad];
 
 #define BLANK 0
@@ -69,11 +70,20 @@
 		[self iPhone5Setup];
 	}
 
-#if !(TARGET_IPHONE_SIMULATOR)
-	[ZBarReaderView class];
-	[self setupZBar];
-#endif
+}
 
+-(void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+
+	[self setupZBar];
+
+	if (IS_IPHONE_5)
+	{
+		//The iphone 5 has a longer screen, which cannot be accounted for in the storyboard setup, so we need to give it a different image and lay out the sub-images differently
+		self.backgroundImageView.image = [UIImage imageNamed:@"scanner screen-tall@2x.png"];
+	}
+	
 }
 
 -(void) setupZBar
@@ -82,15 +92,14 @@
 
 	// the delegate receives decode results
 	self.zBarReaderView.readerDelegate = self;
-	//self.zBarReaderView.tracksSymbols = YES;
-	//self.zBarReaderView.allowsPinchZoom = NO;
+	self.zBarReaderView.tracksSymbols = NO;
+	self.zBarReaderView.allowsPinchZoom = NO;
 }
 
 -(void)iPhone5Setup
-{//The iphone 5 has a longer screen, which cannot be accounted for in the storyboard setup, so we need to give it a different image and lay out the sub-images differently
-	self.backgroundImageView.image = [UIImage imageNamed:@"scanner screen-tall@2x.png"];
+{	
 	//move the dynamic images down so they still line up with the slots in the background image
-	self.crosshairsImageView.frame = self.scannerLightImageView.frame = CGRectMake(0, 44, self.crosshairsImageView.frame.size.width, self.crosshairsImageView.frame.size.height);
+	self.crosshairsImageView.frame = self.scannerLightImageView.frame = CGRectMake(0, 44, self.scannerLightImageView.frame.size.width, self.scannerLightImageView.frame.size.height);
 	self.zBarReaderView.frame = CGRectMake(self.zBarReaderView.frame.origin.x, self.zBarReaderView.frame.origin.y + 44, self.zBarReaderView.frame.size.width, self.zBarReaderView.frame.size.height);
 }
 
@@ -112,6 +121,7 @@
 
 - (void) viewDidAppear: (BOOL) animated
 {
+	[super viewDidAppear:animated];
 	// run the reader when the view is visible
 	self.scannerLightImageView.image = self.scannerLightImageArray[BLANK];
 	self.crosshairsImageView.image = self.crosshairImageArray[BLANK];
@@ -122,6 +132,7 @@
 
 -(void)viewDidDisappear:(BOOL)animated
 {
+	[super viewDidDisappear:animated];
 	[self.zBarReaderView stop];
 }
 
@@ -142,6 +153,7 @@
 	// compensate for view rotation so camera preview is not rotated
 	[self.zBarReaderView willRotateToInterfaceOrientation: orient
 																			duration: duration];
+	[super willRotateToInterfaceOrientation:orient duration:duration];
 }
 
 - (void) readerView: (ZBarReaderView*) view
