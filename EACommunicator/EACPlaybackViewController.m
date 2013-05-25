@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Museum of Science Boston. All rights reserved.
 //
 
-#define kPLAYBACK_USER_DEFAULTS (@"playback_info") //Dictionary of playback information
+#define kPLAYBACK_USER_DEFAULTS (@"playback_info") //Array of Dictionaries of playback information
 
 //keys for user defaults information
 #define kIS_PREP_ADVENTURE (@"is_prep_adventure") //BOOL. YES if adventure is a prep adventure.
@@ -30,7 +30,7 @@
 
 //current playback information for the track most recently scanned
 @property (nonatomic, strong) NSString* adventure_ID;
-@property BOOL isPrepAdventure;
+@property int prepAdventure;
 @property int adventureNumber;
 
 //background
@@ -111,6 +111,7 @@
 	
 	self.animatedConcentricImageView.image = self.animatedConcentricImageArray[0];
 	
+	[self loadAudioCSV];
 	[super viewDidLoad];
 }
 
@@ -134,7 +135,9 @@
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
-	if(![defaults boolForKey:@"hasBeenLaunchedBefore"]) {		
+	if(![defaults boolForKey:@"hasBeenLaunchedBefore"])
+	{
+		[self loadUserDefaults];
 		[self performSegueWithIdentifier:@"Instructions Segue"
 															sender:self];
 			
@@ -176,17 +179,68 @@
 
 -(void) updateBrowser
 {
-#warning needs to be finished
 	if (!self.player)
 		self.browserWindowImageView.hidden = YES;
 	else
 	{
+		//show the "now playing:" text
+		[self showNowPlayingView];
+		
+		//update the time on the screen
 		[self updateBrowserTime];
+		
+		//show the tracks-completed circles
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		NSArray* playbackInfo = [defaults arrayForKey:kPLAYBACK_USER_DEFAULTS];
+		NSMutableArray* tracksHaveBeenPlayedInfo = [[NSMutableArray alloc] init];
+		for (NSDictionary* track in playbackInfo)
+		{
+			if(track[kALREADY_PLAYED] && ([(NSString*)track[kADVENTURE_ID] isEqualToString:self.adventure_ID] || [(NSString*)track[kADVENTURE_ID] isEqualToString:@"PA"]))
+				[tracksHaveBeenPlayedInfo addObject:[NSNumber numberWithBool:YES]];
+			else
+				[tracksHaveBeenPlayedInfo addObject:[NSNumber numberWithBool:NO]];
+		}
+		[self applyPreviouslyPlayedTracks:tracksHaveBeenPlayedInfo];
 		
-		NSDictionary* playbackInfo = [defaults dictionaryForKey:kPLAYBACK_USER_DEFAULTS];
+		//show the title
+		if ([self.adventure_ID isEqualToString:@"PA"])
+			[self showPrepAdventureTitle];
+		else
+			[self showNonPrepAdventureTitle];
 		
+		//show the big adventure number
+		[self showAdventureNumber];
 	}
+}
+
+-(void) showAdventureNumber
+{
+#warning needs to be finished
+	
+}
+
+-(void) showNowPlayingView
+{
+#warning needs to be finished
+	
+}
+
+-(void) showNonPrepAdventureTitle
+{
+#warning needs to be finished
+	
+}
+
+-(void) showPrepAdventureTitle
+{
+#warning needs to be finished
+	
+}
+
+-(void) applyPreviouslyPlayedTracks:(NSArray*)tracksHaveBeenPlayedInfo
+{
+#warning needs to be finished
+
 }
 
 -(void) updateBrowserTime
@@ -197,10 +251,120 @@
 
 -(void) setCurrentTrackPlayed
 {
-#warning needs to be finished
+	//apply the NSUserDefaults that will set this track to "isPlayed = YES"
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	NSArray* playbackInfo = [defaults arrayForKey:kPLAYBACK_USER_DEFAULTS];
+
+	if (!playbackInfo)
+	{//No tracks are stored (probably the first time opening the app)
+		NSMutableArray * tempPlaybackInfo = [[NSMutableArray alloc] init];
+		
+		for (NSString* code in self.audioCodes)
+		{
+			//load the track data
+			NSString * adventureID = [code substringWithRange:NSMakeRange(code.length - 3, code.length - 1)];
+			NSNumber * adventureNumber = [NSNumber numberWithInt:[[code substringFromIndex:code.length - 1] intValue]];
+			NSNumber * alreadyPlayed = [NSNumber numberWithBool:NO];
+			NSNumber * isPrepAdventure = [NSNumber numberWithBool:[adventureID isEqualToString:@"PA"]];
+			
+			//check the track data
+			NSLog(@"adventure ID: %@", adventureID);
+			NSLog(@"adventure number: %@", adventureNumber);
+			NSLog(@"already played: %@", alreadyPlayed);
+			NSLog(@"is prep adventure: %@", isPrepAdventure);
+			
+			//assemble the track data
+			NSDictionary* track = @{kADVENTURE_ID: adventureID,
+													 kADVENTURE_NUMBER: adventureNumber,
+													 kALREADY_PLAYED: alreadyPlayed,
+													 kIS_PREP_ADVENTURE: isPrepAdventure};
+			
+			//store the track data
+			[tempPlaybackInfo addObject:track];
+		}
+		
+		playbackInfo = [tempPlaybackInfo copy];
+	}
+	
+	//keep track of where we are because we need to overwrite all the track infor in placybackinfo. Darn immutable things
+	NSMutableArray* tempPlaybackInfo = [[NSMutableArray alloc] init];
+	
+	for (NSDictionary* track in playbackInfo)
+	{
+    if ([(NSString*)track[kADVENTURE_ID] isEqualToString:self.adventure_ID] &&
+				[track[kADVENTURE_NUMBER] intValue] == self.adventureNumber)
+		{
+			NSMutableDictionary* tempTrack = [track mutableCopy];
+			tempTrack[kALREADY_PLAYED] = [NSNumber numberWithBool:YES];
+			[tempPlaybackInfo addObject:[tempTrack copy]];
+		}
+		else [tempPlaybackInfo addObject:[track copy]];
+	}
+	
+	playbackInfo = [tempPlaybackInfo copy];
+	
+	[defaults setObject:playbackInfo forKey:kPLAYBACK_USER_DEFAULTS];
 
 	[defaults synchronize];
+}
+
+-(void)loadUserDefaults
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	NSArray* playbackInfo = [defaults arrayForKey:kPLAYBACK_USER_DEFAULTS];
+	
+	if (!playbackInfo)
+	{//No tracks are stored (probably the first time opening the app)
+		NSMutableArray * tempPlaybackInfo = [[NSMutableArray alloc] init];
+		
+		for (NSString* code in self.audioCodes)
+		{
+			//load the track data
+			NSString * adventureID = [code substringWithRange:NSMakeRange(code.length - 3, 2)];
+			NSNumber * adventureNumber = [NSNumber numberWithInt:[[code substringFromIndex:code.length - 1] intValue]];
+			NSNumber * alreadyPlayed = [NSNumber numberWithBool:NO];
+			NSNumber * isPrepAdventure = [NSNumber numberWithBool:[adventureID isEqualToString:@"PA"]];
+			
+			//check the track data
+			NSLog(@"adventure ID: %@", adventureID);
+			NSLog(@"adventure number: %@", adventureNumber);
+			NSLog(@"already played: %@", alreadyPlayed);
+			NSLog(@"is prep adventure: %@", isPrepAdventure);
+			
+			//assemble the track data
+			NSDictionary* track = @{kADVENTURE_ID: adventureID,
+													 kADVENTURE_NUMBER: adventureNumber,
+													 kALREADY_PLAYED: alreadyPlayed,
+													 kIS_PREP_ADVENTURE: isPrepAdventure};
+			
+			//store the track data
+			[tempPlaybackInfo addObject:track];
+		}
+		
+		playbackInfo = [tempPlaybackInfo copy];
+	}
+	[defaults setObject:playbackInfo forKey:kPLAYBACK_USER_DEFAULTS];
+	
+	[defaults synchronize];
+}
+
+-(void) showDefaultTrackInfo
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	NSArray* playbackInfo = [defaults arrayForKey:kPLAYBACK_USER_DEFAULTS];
+
+	for (NSDictionary*track in playbackInfo)
+	{
+		//check the track data
+		NSLog(@"adventure ID: %@", track[kADVENTURE_ID]);
+		NSLog(@"adventure number: %@", track[kADVENTURE_NUMBER]);
+		NSLog(@"already played: %@", track[kALREADY_PLAYED]);
+		NSLog(@"is prep adventure: %@", track[kIS_PREP_ADVENTURE]);
+
+	}
 }
 
 -(void)applyElapsedTime

@@ -91,7 +91,7 @@
 										forState:UIControlStateNormal];
 	[button addTarget:self
 						 action:@selector(dismissVC)
-	 forControlEvents:UIControlEventTouchDown];
+	 forControlEvents:UIControlEventTouchUpInside];
 
 	button.frame = CGRectMake(button.frame.origin.x + self.scrollView.frame.size.width * --imageCounter,
 														button.frame.origin.y,
