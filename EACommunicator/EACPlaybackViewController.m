@@ -180,7 +180,10 @@
 -(void) updateBrowser
 {
 	if (!self.player)
+	{
 		self.browserWindowImageView.hidden = YES;
+		self.trackNumberImageView.hidden = YES;
+	}
 	else
 	{
 		//show the "now playing:" text
