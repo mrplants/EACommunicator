@@ -7,6 +7,7 @@
 //
 
 #import "EACAppDelegate.h"
+#import "EACInstructionViewController.h"
 
 @implementation EACAppDelegate
 

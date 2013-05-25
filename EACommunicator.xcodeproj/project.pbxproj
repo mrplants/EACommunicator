@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2C52198D1750136000C2BF8A /* bars-vis-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C52198C1750136000C2BF8A /* bars-vis-0.png */; };
+		2C52199417504D8300C2BF8A /* roundPlayButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C52199317504D8300C2BF8A /* roundPlayButton.png */; };
+		2C52199D1750596A00C2BF8A /* normalPlayPause.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C52199B1750596A00C2BF8A /* normalPlayPause.png */; };
 		2C65BE49174E9EE200041E0F /* instructional cards 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE3A174E9EE200041E0F /* instructional cards 1.png */; };
 		2C65BE4A174E9EE200041E0F /* instructional cards 1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE3B174E9EE200041E0F /* instructional cards 1@2x.png */; };
 		2C65BE4B174E9EE200041E0F /* instructional cards 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C65BE3C174E9EE200041E0F /* instructional cards 2.png */; };
@@ -129,6 +131,8 @@
 
 /* Begin PBXFileReference section */
 		2C52198C1750136000C2BF8A /* bars-vis-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bars-vis-0.png"; sourceTree = "<group>"; };
+		2C52199317504D8300C2BF8A /* roundPlayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = roundPlayButton.png; path = ../roundPlayButton.png; sourceTree = "<group>"; };
+		2C52199B1750596A00C2BF8A /* normalPlayPause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = normalPlayPause.png; sourceTree = "<group>"; };
 		2C65BE3A174E9EE200041E0F /* instructional cards 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "instructional cards 1.png"; path = "../instructional cards 1.png"; sourceTree = "<group>"; };
 		2C65BE3B174E9EE200041E0F /* instructional cards 1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "instructional cards 1@2x.png"; path = "../instructional cards 1@2x.png"; sourceTree = "<group>"; };
 		2C65BE3C174E9EE200041E0F /* instructional cards 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "instructional cards 2.png"; path = "../instructional cards 2.png"; sourceTree = "<group>"; };
@@ -297,11 +301,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2C65BE39174E9E8D00041E0F /* new images */ = {
+		2C52198E175015A200C2BF8A /* other custom subclasses */ = {
 			isa = PBXGroup;
 			children = (
+				2C65BE5C174F01F500041E0F /* WatchBandStoryboardSegue.h */,
+				2C65BE5D174F01F500041E0F /* WatchBandStoryboardSegue.m */,
 			);
-			name = "new images";
+			name = "other custom subclasses";
 			sourceTree = "<group>";
 		};
 		2C65BE5B174EFCE100041E0F /* PA */ = {
@@ -381,8 +387,8 @@
 		2C71259C174E5DF2008788AB /* audio */ = {
 			isa = PBXGroup;
 			children = (
-				2C65BE5B174EFCE100041E0F /* PA */,
 				2C71268D174E66AA008788AB /* EACommunicatorAudioDataModel.csv */,
+				2C65BE5B174EFCE100041E0F /* PA */,
 				2C712615174E6416008788AB /* 1. Cane Toads */,
 				2C71261D174E6416008788AB /* 2. Bubbles */,
 				2C712628174E6416008788AB /* 3. Packages */,
@@ -477,7 +483,6 @@
 		2C7543EE174CF06D00B353D0 = {
 			isa = PBXGroup;
 			children = (
-				2C65BE39174E9E8D00041E0F /* new images */,
 				2C754400174CF06D00B353D0 /* EACommunicator */,
 				2C7543F9174CF06D00B353D0 /* Frameworks */,
 				2C712573174DE87B008788AB /* ZBarSDK */,
@@ -511,12 +516,11 @@
 		2C754400174CF06D00B353D0 /* EACommunicator */ = {
 			isa = PBXGroup;
 			children = (
-				2C65BE5C174F01F500041E0F /* WatchBandStoryboardSegue.h */,
-				2C65BE5D174F01F500041E0F /* WatchBandStoryboardSegue.m */,
-				2C71259C174E5DF2008788AB /* audio */,
 				2CD7E0C6174D704C0062D951 /* Constants.h */,
-				2C754420174CF39800B353D0 /* ViewControllers */,
 				2C754412174CF06D00B353D0 /* MainStoryboard.storyboard */,
+				2C754420174CF39800B353D0 /* custom ViewControllers */,
+				2C52198E175015A200C2BF8A /* other custom subclasses */,
+				2C71259C174E5DF2008788AB /* audio */,
 				2C754424174CF49300B353D0 /* Images */,
 				2C754401174CF06D00B353D0 /* Supporting Files */,
 			);
@@ -536,7 +540,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		2C754420174CF39800B353D0 /* ViewControllers */ = {
+		2C754420174CF39800B353D0 /* custom ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				2CD7E0C9174D961A0062D951 /* EACInstructionViewController.h */,
@@ -546,12 +550,14 @@
 				2C75441D174CF39400B353D0 /* EACScannerViewController.h */,
 				2C75441E174CF39400B353D0 /* EACScannerViewController.m */,
 			);
-			name = ViewControllers;
+			name = "custom ViewControllers";
 			sourceTree = "<group>";
 		};
 		2C754424174CF49300B353D0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2C52199B1750596A00C2BF8A /* normalPlayPause.png */,
+				2C52199317504D8300C2BF8A /* roundPlayButton.png */,
 				2C52198C1750136000C2BF8A /* bars-vis-0.png */,
 				2C65BE3A174E9EE200041E0F /* instructional cards 1.png */,
 				2C65BE3B174E9EE200041E0F /* instructional cards 1@2x.png */,
@@ -766,6 +772,8 @@
 				2C65BE56174E9EE200041E0F /* scanner-light-green.png in Resources */,
 				2C65BE57174E9EE200041E0F /* scanner-light-red.png in Resources */,
 				2C52198D1750136000C2BF8A /* bars-vis-0.png in Resources */,
+				2C52199417504D8300C2BF8A /* roundPlayButton.png in Resources */,
+				2C52199D1750596A00C2BF8A /* normalPlayPause.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

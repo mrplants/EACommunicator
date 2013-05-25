@@ -60,22 +60,6 @@
                                     <constraint firstItem="LGh-ay-zSP" firstAttribute="trailing" secondItem="Zjh-Eh-sbO" secondAttribute="trailing" type="default" id="zMS-qn-fZC"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eXE-1T-zZr">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="kTx-P7-fJ1"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="5XV-tI-r5D" kind="modal" id="6B1-hx-5NL"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -86,8 +70,6 @@
                             <constraint firstItem="Zjh-Eh-sbO" firstAttribute="top" secondItem="3" secondAttribute="top" type="user" id="Dct-51-5Qr"/>
                             <constraint firstItem="Yzq-e7-oBP" firstAttribute="top" secondItem="3" secondAttribute="top" type="user" id="KFe-OL-2ON"/>
                             <constraint firstItem="Yzq-e7-oBP" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="user" id="V8Y-1H-n70"/>
-                            <constraint firstItem="eXE-1T-zZr" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="c63-kC-Ch3"/>
-                            <constraint firstAttribute="bottom" secondItem="eXE-1T-zZr" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="wTM-PP-vng"/>
                             <constraint firstItem="Zjh-Eh-sbO" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="user" id="zNt-pd-Qb7"/>
                         </constraints>
                         <connections>
@@ -108,6 +90,7 @@
                         <outlet property="resizeView" destination="Zjh-Eh-sbO" id="USs-gs-VdC"/>
                         <outlet property="scanButtonImageView" destination="i22-DL-4if" id="G24-nm-2tE"/>
                         <outlet property="trackNumberImageView" destination="reN-Vc-WvO" id="GME-uZ-tfu"/>
+                        <segue destination="5XV-tI-r5D" kind="modal" identifier="Instructions Segue" id="r5M-bB-hU6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -221,7 +204,7 @@
         <!--Instruction View Controller-->
         <scene sceneID="FTa-31-RHY">
             <objects>
-                <viewController id="5XV-tI-r5D" customClass="EACInstructionViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Instruction UIViewController" id="5XV-tI-r5D" customClass="EACInstructionViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ffp-HO-dhm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -236,56 +219,60 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="WQR-ZP-EmV" secondAttribute="bottom" constant="116" id="8ke-zG-BbS"/>
                                     <constraint firstItem="WQR-ZP-EmV" firstAttribute="leading" secondItem="sBX-2q-IrQ" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="QU0-RA-Hsy"/>
                                     <constraint firstItem="WQR-ZP-EmV" firstAttribute="centerY" secondItem="sBX-2q-IrQ" secondAttribute="centerY" type="default" id="Xxu-yW-Z4J"/>
                                     <constraint firstAttribute="trailing" secondItem="WQR-ZP-EmV" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="h8X-pm-jEJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="WQR-ZP-EmV" secondAttribute="bottom" constant="150" id="nli-BC-3nP"/>
                                 </constraints>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tVd-PJ-ecZ">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="114" id="GfH-s8-zF6"/>
+                                    <constraint firstAttribute="height" constant="44" id="vKF-dF-qTU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                <state key="normal" backgroundImage="roundPlayButton.png">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="0c6-VC-A2I">
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="changePage:" destination="5XV-tI-r5D" eventType="valueChanged" id="Ucl-aE-62L"/>
                                 </connections>
                             </pageControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tVd-PJ-ecZ">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="Dga-Se-Xdy"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="goBackButton" destination="5XV-tI-r5D" eventType="touchUpInside" id="jAz-0w-OfG"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="sBX-2q-IrQ" firstAttribute="leading" secondItem="Ffp-HO-dhm" secondAttribute="leading" type="default" id="1Rn-Nv-FRq"/>
                             <constraint firstItem="0c6-VC-A2I" firstAttribute="leading" secondItem="Ffp-HO-dhm" secondAttribute="leading" type="default" id="2qK-jK-pgI"/>
                             <constraint firstItem="sBX-2q-IrQ" firstAttribute="bottom" secondItem="Ffp-HO-dhm" secondAttribute="bottom" type="default" id="Dyt-xj-4dA"/>
                             <constraint firstItem="0c6-VC-A2I" firstAttribute="trailing" secondItem="Ffp-HO-dhm" secondAttribute="trailing" type="default" id="Kz6-9o-9d5"/>
-                            <constraint firstItem="tVd-PJ-ecZ" firstAttribute="centerX" secondItem="0c6-VC-A2I" secondAttribute="centerX" type="default" id="egD-II-flZ"/>
+                            <constraint firstItem="tVd-PJ-ecZ" firstAttribute="top" secondItem="Ffp-HO-dhm" secondAttribute="top" constant="20" symbolic="YES" type="user" id="NyN-D0-RIh"/>
                             <constraint firstItem="sBX-2q-IrQ" firstAttribute="top" secondItem="Ffp-HO-dhm" secondAttribute="top" type="default" id="gqf-BQ-cAg"/>
+                            <constraint firstItem="tVd-PJ-ecZ" firstAttribute="centerX" secondItem="0c6-VC-A2I" secondAttribute="centerX" type="default" id="o7N-yB-SqF"/>
                             <constraint firstItem="sBX-2q-IrQ" firstAttribute="trailing" secondItem="Ffp-HO-dhm" secondAttribute="trailing" type="default" id="sGv-g2-gay"/>
-                            <constraint firstItem="tVd-PJ-ecZ" firstAttribute="top" secondItem="Ffp-HO-dhm" secondAttribute="top" constant="218" id="xZQ-d7-eMp"/>
                             <constraint firstItem="0c6-VC-A2I" firstAttribute="bottom" secondItem="Ffp-HO-dhm" secondAttribute="bottom" type="default" id="yWU-wR-p6K"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="instructionImageView" destination="WQR-ZP-EmV" id="KVy-eT-Tdn"/>
                         <outlet property="instructionPageControl" destination="0c6-VC-A2I" id="7Xh-a6-l4x"/>
+                        <outlet property="playButton" destination="tVd-PJ-ecZ" id="kwC-bx-pTF"/>
                         <outlet property="scrollView" destination="sBX-2q-IrQ" id="EcV-Wk-PQw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bGb-lA-27j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1018" y="729"/>
+            <point key="canvasLocation" x="1021" y="699"/>
         </scene>
     </scenes>
     <resources>
@@ -296,6 +283,7 @@
         <image name="instructional cards 1.png" width="280" height="245"/>
         <image name="main screen.png" width="320" height="480"/>
         <image name="play-pause-off.png" width="640" height="960"/>
+        <image name="roundPlayButton.png" width="229" height="106"/>
         <image name="scan-button-off.png" width="640" height="960"/>
         <image name="scanner screen.png" width="320" height="480"/>
         <image name="scanner-crosshairs-blank.png" width="640" height="960"/>
@@ -304,47 +292,6 @@
         <image name="scanner-light-red.png" width="640" height="960"/>
         <image name="track02.png" width="640" height="960"/>
     </resources>
-    <classes>
-        <class className="EACInstructionViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/EACInstructionViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="instructionImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="instructionPageControl" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="EACPlaybackViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/EACPlaybackViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="animatedBarsImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="animatedConcentricImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="backgroundImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="browserWindowImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="elapsedImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="playButtonImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="resizeView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="scanButtonImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="trackNumberImageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="EACScannerViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/EACScannerViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="backgroundImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="cameraShutterView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="crosshairsImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="resizingImageView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="scannerLightImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="zBarReaderView" candidateClass="ZBarReaderView"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="ZBarReaderView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ZBarReaderView.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

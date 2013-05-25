@@ -17,20 +17,18 @@
 
 @property (weak, nonatomic) IBOutlet UIPageControl *instructionPageControl;
 
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
+
 @property (nonatomic, strong) NSArray * instructionImageArray;
 
 @end
 
 @implementation EACInstructionViewController
 
-//remove this with the back button
-- (IBAction)goBackButton
-{
-	[self dismissViewControllerAnimated:YES completion:NULL];
-}
 
 -(void)viewDidLoad
 {
+	self.playButton.hidden = YES;
 	[self.instructionImageView setHidden:YES];
 	[super viewDidLoad];
 	self.instructionImageArray = @[[UIImage imageNamed:@"instructional cards 1.png"],
@@ -38,6 +36,9 @@
 																[UIImage imageNamed:@"instructional cards 3.png"]];
 	self.instructionPageControl.numberOfPages = [self.instructionImageArray count];
 	self.instructionPageControl.currentPage = 0;
+	self.playButton.layer.cornerRadius = 10; // this value vary as per your desire
+	self.playButton.clipsToBounds = YES;
+
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -49,7 +50,7 @@
 																			mainFrame.size.width,
 																			mainFrame.size.height)];
 	[self setupScrollView];
-	[UIView animateWithDuration:0.2 animations:^() {
+	[UIView animateWithDuration:0.1 animations:^() {
 		self.scrollView.frame = mainFrame;
 	}];
 }
@@ -82,8 +83,31 @@
     imageCounter++;
 	}
 	
+	[self.playButton removeFromSuperview];
+	
+	UIButton*button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+	button.frame = self.playButton.frame;
+	[button setBackgroundImage:[UIImage imageNamed:@"normalPlayPause.png"]
+										forState:UIControlStateNormal];
+	[button addTarget:self
+						 action:@selector(dismissVC)
+	 forControlEvents:UIControlEventTouchDown];
+
+	button.frame = CGRectMake(button.frame.origin.x + self.scrollView.frame.size.width * --imageCounter,
+														button.frame.origin.y,
+														button.frame.size.width,
+														button.frame.size.height);
+	
+	[self.scrollView addSubview:button];
+
+	[self.scrollView addSubview:button];
 	self.scrollView.scrollsToTop = NO;
 	self.scrollView.delegate = self;
+}
+
+-(void) dismissVC
+{
+	[self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 // at the end of scroll animation, reset the boolean used when scrolls originate from the UIPageControl

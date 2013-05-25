@@ -6,9 +6,18 @@
 //  Copyright (c) 2013 Museum of Science Boston. All rights reserved.
 //
 
+#define kPLAYBACK_USER_DEFAULTS (@"playback_info") //Dictionary of playback information
+
+//keys for user defaults information
+#define kIS_PREP_ADVENTURE (@"is_prep_adventure") //BOOL. YES if adventure is a prep adventure.
+#define kADVENTURE_NUMBER (@"adventure_number") //int. The adventure number for that adenture unit.
+#define kALREADY_PLAYED (@"already_played") //BOOL. YES if the adventure has been played before.
+#define kADVENTURE_ID (@"adventure identifier") //NSString *. Two letter identifier for the type of adventure unit
+
 #import "EACPlaybackViewController.h"
 #import "EACScannerViewController.h"
 #import "Constants.h"
+#import "EACInstructionViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface EACPlaybackViewController () <AVAudioPlayerDelegate>
@@ -17,6 +26,12 @@
 @property (nonatomic, strong) AVAudioPlayer * player;
 @property (nonatomic, strong) NSTimer * playerTimer;
 @property (nonatomic, strong) NSTimer * playbackMeteringTimer;
+@property (nonatomic, strong) NSArray * audioCodes;
+
+//current playback information for the track most recently scanned
+@property (nonatomic, strong) NSString* adventure_ID;
+@property BOOL isPrepAdventure;
+@property int adventureNumber;
 
 //background
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
@@ -35,13 +50,12 @@
 @property (weak, nonatomic) IBOutlet UIImageView *animatedBarsImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *animatedConcentricImageView;
 
-//models
-//animated
+//view
 @property (nonatomic, strong) NSArray * animatedBarsImageArray;
 @property (nonatomic, strong) UIImage * flatBarImage;
 @property (nonatomic, strong) NSArray * animatedConcentricImageArray;
-//nonanimated
 @property (nonatomic, strong) NSArray * elapsedVisualImageArray;
+@property (nonatomic, strong) NSArray * browserElements;
 
 @end
 
@@ -117,13 +131,38 @@
 	//prepare the player so it runs faster
 	[self.player prepareToPlay];
 	self.player.delegate = self;
-
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	if(![defaults boolForKey:@"hasBeenLaunchedBefore"]) {		
+		[self performSegueWithIdentifier:@"Instructions Segue"
+															sender:self];
+			
+		[defaults setBool:YES forKey:@"hasBeenLaunchedBefore"];
+		[defaults synchronize];
+	}
 }
 
 -(void)iPhone5Setup
 {//The iphone 5 has a longer screen, which cannot be accounted for in the storyboard setup, so we need to give it a different image and lay out the sub-images differently
 	self.backgroundImageView.image = [UIImage imageNamed:@"main screen-tall@2x.png"];
 	self.resizeView.frame = CGRectMake(0, 44, self.resizeView.frame.size.width, self.resizeView.frame.size.height);
+}
+
+-(void) loadAudioCSV
+{
+	NSString* pathT = [[NSBundle mainBundle] pathForResource:@"EACommunicatorAudioDataModel"
+																										ofType:@"csv"];
+	NSString* contentT = [NSString stringWithContentsOfFile:pathT
+																								 encoding:NSUTF8StringEncoding
+																										error:NULL];
+	self.audioCodes = [contentT componentsSeparatedByString:@"\r"];
+}
+
+-(NSArray *)browserElements
+{
+	if (!_browserElements) _browserElements = [[NSArray alloc] init];
+	return _browserElements;
 }
 
 -(void)loadAudioFile
@@ -135,12 +174,41 @@
 	
 }
 
+-(void) updateBrowser
+{
+#warning needs to be finished
+	if (!self.player)
+		self.browserWindowImageView.hidden = YES;
+	else
+	{
+		[self updateBrowserTime];
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		
+		NSDictionary* playbackInfo = [defaults dictionaryForKey:kPLAYBACK_USER_DEFAULTS];
+		
+	}
+}
+
+-(void) updateBrowserTime
+{
+#warning needs to be finished
+
+}
+
+-(void) setCurrentTrackPlayed
+{
+#warning needs to be finished
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+	[defaults synchronize];
+}
+
 -(void)applyElapsedTime
 {
 	//NSTimeInterval timeLeft = self.player.duration - self.player.currentTime;
 	
-	// update your UI with timeLeft
-
+	[self updateBrowser];
+	
 	int elapsedTimeIncrement = (self.player) ? (self.player.currentTime / self.player.duration * 8) : (0);
 	
 	self.elapsedImageView.image = self.elapsedVisualImageArray[elapsedTimeIncrement];
