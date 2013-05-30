@@ -16,4 +16,7 @@
 //loads the audio file called "self.audiofileName
 -(void)loadAudioFile;
 
+//loads the metadata for the scanned code that corresponds to the played audio file
+-(void)loadTrackData:(NSString*) scannedCode;
+
 @end

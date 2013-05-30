@@ -30,7 +30,7 @@
 
 //current playback information for the track most recently scanned
 @property (nonatomic, strong) NSString* adventure_ID;
-@property int prepAdventure;
+@property BOOL isPrepAdventure;
 @property int adventureNumber;
 
 //background
@@ -110,7 +110,7 @@
 	self.animatedBarsImageView.image = self.flatBarImage;
 	
 	self.animatedConcentricImageView.image = self.animatedConcentricImageArray[0];
-	
+		
 	[self loadAudioCSV];
 	[super viewDidLoad];
 }
@@ -168,6 +168,20 @@
 	return _browserElements;
 }
 
+-(void)loadTrackData:(NSString*) scannedCode
+{
+	int indexOfAdventure_ID = [scannedCode rangeOfString:@"_"].location + 1;
+	
+	self.adventure_ID = [scannedCode substringWithRange:NSMakeRange(indexOfAdventure_ID, 2)];
+	NSLog(@"%@", self.adventure_ID);
+	
+	self.isPrepAdventure = [self.adventure_ID isEqualToString:@"PA"];
+	NSLog(@"%d", self.isPrepAdventure);
+	
+	self.adventureNumber = [[scannedCode substringToIndex:indexOfAdventure_ID + 2] intValue];
+	NSLog(@"%d", self.adventureNumber);
+}
+
 -(void)loadAudioFile
 {
 	NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: [[NSBundle mainBundle] pathForResource:self.audioFileName
@@ -186,6 +200,10 @@
 	}
 	else
 	{
+		for (UIView * view in self.browserWindowImageView.subviews)
+			[view removeFromSuperview];
+		self.browserWindowImageView.image = nil;
+		self.browserWindowImageView.hidden = NO;
 		//show the "now playing:" text
 		[self showNowPlayingView];
 		
@@ -218,38 +236,254 @@
 
 -(void) showAdventureNumber
 {
-#warning needs to be finished
+	//set the center after analyzing the browser layout image in photoshop
+	CGPoint adventureNumberImageViewCenter = CGPointMake(139, 113);
+	CGPoint smallerAdventureNumberImageViewOrigin = CGPointMake(220, 182);
 	
+	//create the name of the image based on the data that was loaded from the QR code
+	NSString * adventureNumberImageName;
+	NSString * smallerAdventureNumberImageName;
+	if (self.isPrepAdventure) adventureNumberImageName = [NSString stringWithFormat:@"trackP%d.png", self.adventureNumber];
+	else adventureNumberImageName = [NSString stringWithFormat:@"track%d.png", self.adventureNumber];
+	
+	smallerAdventureNumberImageName = [NSString stringWithFormat:@"big%d.png", self.adventureNumber];
+	
+	//get the image with the correct name
+	UIImage * adventureNumberImage = [UIImage imageNamed:adventureNumberImageName];
+	UIImage * smallerAdventureNumberImage = [UIImage imageNamed:smallerAdventureNumberImageName];
+	
+	//init the image inside the imageView
+	UIImageView * adventureNumberImageView = [[UIImageView alloc] initWithImage:adventureNumberImage];
+	UIImageView * smallerAdventureNumberImageView = [[UIImageView alloc] initWithImage:smallerAdventureNumberImage];
+
+	//set the correct frame for the iamge.
+	adventureNumberImageView.frame = CGRectMake(0,
+																							0,
+																							adventureNumberImage.size.width / 2,
+																							adventureNumberImage.size.height / 2);
+	smallerAdventureNumberImageView.frame = CGRectMake(smallerAdventureNumberImageViewOrigin.x,
+																										 smallerAdventureNumberImageViewOrigin.y,
+																										 smallerAdventureNumberImage.size.width / 2,
+																										 smallerAdventureNumberImage.size.height / 2);
+	
+	//put the imageView in the correct position
+	adventureNumberImageView.center = adventureNumberImageViewCenter;
+	
+	//set the correct content mode for the imageView
+	adventureNumberImageView.contentMode = UIViewContentModeScaleAspectFit;
+	adventureNumberImageView.layer.masksToBounds = YES;
+	smallerAdventureNumberImageView.contentMode = UIViewContentModeScaleAspectFit;
+	smallerAdventureNumberImageView.layer.masksToBounds = YES;
+	
+	//add the imageView to the browser imageView
+	[self.browserWindowImageView addSubview:adventureNumberImageView];
+	[self.browserWindowImageView addSubview:smallerAdventureNumberImageView];
 }
 
 -(void) showNowPlayingView
 {
-#warning needs to be finished
+	//create the point that will be the origin of the image
+	CGPoint nowPlayingImageViewOrigin = CGPointMake(69, 158);
 	
+	//fetch the image of the Now Playing text
+	UIImage * nowPlayingImage = [UIImage imageNamed:@"nowplaying.png"];
+	
+	//init the image inside the imageView
+	UIImageView * nowPlayingImageView = [[UIImageView alloc] initWithImage:nowPlayingImage];
+	
+	//set the correct frame for the imageView
+	//set the correct frame for the iamge.
+	nowPlayingImageView.frame = CGRectMake(nowPlayingImageViewOrigin.x,
+																				 nowPlayingImageViewOrigin.y,
+																				 nowPlayingImage.size.width / 2,
+																				 nowPlayingImage.size.height / 2);
+	
+	//set the correct content mode for the imageView
+	nowPlayingImageView.contentMode = UIViewContentModeScaleAspectFit;
+	nowPlayingImageView.layer.masksToBounds = YES;
+	
+	//add the imageView to the browser imageView
+	[self.browserWindowImageView addSubview:nowPlayingImageView];
 }
 
 -(void) showNonPrepAdventureTitle
 {
-#warning needs to be finished
+	//create the point that will be the origin of the image
+	CGPoint adventureImageViewOrigin = CGPointMake(119, 182);
 	
+	//fetch the image of the Now Playing text
+	UIImage * adventureImage = [UIImage imageNamed:@"Adventure.png"];
+	
+	//init the image inside the imageView
+	UIImageView * adventureImageView = [[UIImageView alloc] initWithImage:adventureImage];
+	
+	//set the correct frame for the imageView
+	//set the correct frame for the iamge.
+	adventureImageView.frame = CGRectMake(adventureImageViewOrigin.x,
+																				adventureImageViewOrigin.y,
+																				adventureImage.size.width / 2,
+																				adventureImage.size.height / 2);
+	
+	//set the correct content mode for the imageView
+	adventureImageView.contentMode = UIViewContentModeScaleAspectFit;
+	adventureImageView.layer.masksToBounds = YES;
+	
+	//add the imageView to the browser imageView
+	[self.browserWindowImageView addSubview:adventureImageView];
 }
 
 -(void) showPrepAdventureTitle
 {
-#warning needs to be finished
+	//create the point that will be the origin of the image
+	CGPoint prepAdventureImageViewOrigin = CGPointMake(69, 182);
 	
+	//fetch the image of the Now Playing text
+	UIImage * prepAdventureImage = [UIImage imageNamed:@"prepadventure.png"];
+	
+	//init the image inside the imageView
+	UIImageView * prepAdventureImageView = [[UIImageView alloc] initWithImage:prepAdventureImage];
+	
+	//set the correct frame for the imageView
+	//set the correct frame for the iamge.
+	prepAdventureImageView.frame = CGRectMake(prepAdventureImageViewOrigin.x,
+																						prepAdventureImageViewOrigin.y,
+																						prepAdventureImage.size.width / 2,
+																						prepAdventureImage.size.height / 2);
+	
+	//set the correct content mode for the imageView
+	prepAdventureImageView.contentMode = UIViewContentModeScaleAspectFit;
+	prepAdventureImageView.layer.masksToBounds = YES;
+	
+	//add the imageView to the browser imageView
+	[self.browserWindowImageView addSubview:prepAdventureImageView];
 }
 
 -(void) applyPreviouslyPlayedTracks:(NSArray*)tracksHaveBeenPlayedInfo
 {
 #warning needs to be finished
-
+	
 }
 
 -(void) updateBrowserTime
 {
 #warning needs to be finished
+	NSLog(@"%f / %f", self.player.currentTime, self.player.duration);
+	
+	float currentTime = self.player.currentTime;
+	
+	int minutes = currentTime / 60;
+	int firstNumber = minutes / 10;
+	int secondNumber = minutes - firstNumber * 10;
+	
+	int seconds = currentTime - minutes * 60;
+	int thirdNumber = seconds  / 10;
+	int fourthNumber = seconds - thirdNumber * 10;
+	
+	UIImage * firstNumberImage = [UIImage imageNamed:[NSString stringWithFormat:@"big%d.png", firstNumber]];
+	UIImage * secondNumberImage = [UIImage imageNamed:[NSString stringWithFormat:@"big%d.png", secondNumber]];
+	UIImage * colonImage = [UIImage imageNamed:@"bigcolon.png"];
+	UIImage * thirdNumberImage = [UIImage imageNamed:[NSString stringWithFormat:@"big%d.png", thirdNumber]];
+	UIImage * fourthNumberImage = [UIImage imageNamed:[NSString stringWithFormat:@"big%d.png", fourthNumber]];
+	UIImage * ofImage = [UIImage imageNamed:@"of.png"];
+	
+	float totalTime = self.player.duration;
+	
+	int totalMinutes = totalTime / 60;
+	int fifthNumber = totalMinutes / 10;
+	int sixthNumber = totalMinutes - fifthNumber * 10;
+	
+	int totalSeconds = totalTime - totalMinutes * 60;
+	int seventhNumber = totalSeconds  / 10;
+	int eighthNumber = totalSeconds - seventhNumber * 10;
+	
+	NSLog(@"%d%d:%d%d of %d%d:%d%d",
+				firstNumber,
+				secondNumber,
+				thirdNumber,
+				fourthNumber,
+				fifthNumber,
+				sixthNumber,
+				seventhNumber,
+				eighthNumber);
+	
+	UIImage * fifthNumberImage = [UIImage imageNamed:[NSString stringWithFormat:@"big%d.png", fifthNumber]];
+	UIImage * sixthNumberImage = [UIImage imageNamed:[NSString stringWithFormat:@"big%d.png", sixthNumber]];
+	UIImage * secondColonImage = [UIImage imageNamed:@"bigcolon.png"];
+	UIImage * seventhNumberImage = [UIImage imageNamed:[NSString stringWithFormat:@"big%d.png", seventhNumber]];
+	UIImage * eighthNumberImage = [UIImage imageNamed:[NSString stringWithFormat:@"big%d.png", eighthNumber]];
 
+	UIImageView * firstNumberImageView = [[UIImageView alloc] initWithImage:firstNumberImage];
+	UIImageView * secondNumberImageView = [[UIImageView alloc] initWithImage:secondNumberImage];
+	UIImageView * firstColonImageView = [[UIImageView alloc] initWithImage:colonImage];
+	UIImageView * thirdNumberImageView = [[UIImageView alloc] initWithImage:thirdNumberImage];
+	UIImageView * fourthNumberImageView = [[UIImageView alloc] initWithImage:fourthNumberImage];
+	UIImageView * ofImageView = [[UIImageView alloc] initWithImage:ofImage];
+	UIImageView * fifthNumberImageView = [[UIImageView alloc] initWithImage:fifthNumberImage];
+	UIImageView * sixthNumberImageView = [[UIImageView alloc] initWithImage:sixthNumberImage];
+	UIImageView * secondColonImageView = [[UIImageView alloc] initWithImage:secondColonImage];
+	UIImageView * seventhNumberImageView = [[UIImageView alloc] initWithImage:seventhNumberImage];
+	UIImageView * eightNumberImageView = [[UIImageView alloc] initWithImage:eighthNumberImage];
+	
+	NSArray* numberImageViewArray = @[firstNumberImageView,
+															 secondNumberImageView,
+															 
+															 firstColonImageView,
+															 
+															 thirdNumberImageView,
+															 fourthNumberImageView,
+															 
+															 ofImageView,
+															 
+															 fifthNumberImageView,
+															 sixthNumberImageView,
+															 
+															 secondColonImageView,
+															 
+															 seventhNumberImageView,
+															 eightNumberImageView];
+	
+	int imageIndex = 0;
+	for (UIImageView * imageView in numberImageViewArray)
+	{
+		CGPoint origin;
+		switch (imageIndex) {
+			case 0:
+			case 6:
+				origin = CGPointMake(71 + imageIndex / 6 * 84, 205);
+				break;
+			case 1:
+			case 7:
+				origin = CGPointMake(87 + imageIndex / 6 * 84, 205);
+				break;
+			case 2:
+			case 8:
+				origin = CGPointMake(103 + imageIndex / 6 * 84, 207);
+				break;
+			case 3:
+			case 9:
+				origin = CGPointMake(111 + imageIndex / 6 * 84, 205);
+				break;
+			case 4:
+			case 10:
+				origin = CGPointMake(127 + imageIndex / 6 * 84, 205);
+				break;
+			case 5:
+				origin = CGPointMake(140 + imageIndex / 6 * 84, 206);
+				break;
+				
+			default:
+				break;
+		}
+		
+    imageView.frame = CGRectMake(origin.x,
+																 origin.y,
+																 imageView.image.size.width / 2,
+																 imageView.image.size.height / 2);
+		imageView.contentMode = UIViewContentModeScaleAspectFit;
+		imageView.layer.masksToBounds = YES;
+		[self.browserWindowImageView addSubview:imageView];
+		imageIndex++;
+	}
 }
 
 -(void) setCurrentTrackPlayed
@@ -374,8 +608,10 @@
 {
 	//NSTimeInterval timeLeft = self.player.duration - self.player.currentTime;
 	
+	if (self.player.isPlaying) self.playButtonImageView.image = [UIImage imageNamed:@"play-pause-on.png"];
+
 	[self updateBrowser];
-	
+		
 	int elapsedTimeIncrement = (self.player) ? (self.player.currentTime / self.player.duration * 8) : (0);
 	
 	self.elapsedImageView.image = self.elapsedVisualImageArray[elapsedTimeIncrement];
@@ -421,8 +657,6 @@
 	[super touchesEnded:touches withEvent:event];
 }
 
-
-
 -(BOOL)pointIsInsidePlayPauseButton:(CGPoint)point
 {
 	if ((point.x <= PLAYPAUSE_X + PLAYPAUSE_RADIUS &&
@@ -460,8 +694,8 @@
 - (void)QRButtonTouchUpInside
 {
 	[self performSegueWithIdentifier:@"switchToScanner" sender:self];
-	self.scanButtonImageView.image = [UIImage imageNamed:@"scan-button-off.png"];
-	[self.player pause];
+//	self.scanButtonImageView.image = [UIImage imageNamed:@"scan-button-off.png"];
+//	[self.player pause];
 }
 
 - (void)playButtonTouchDown
@@ -471,11 +705,12 @@
 
 - (void)playButtonTouchUpOutside
 {
-	self.playButtonImageView.image = [UIImage imageNamed:@"play-pause-off.png"];
+	if(!self.player.isPlaying) self.playButtonImageView.image = [UIImage imageNamed:@"play-pause-off.png"];
 }
 
 - (void)playButtonTouchUpInside
 {
+	[self applyElapsedTime];
 	if (!self.player.isPlaying && self.player)
 	{
 		[self startPlaybackAnimations];

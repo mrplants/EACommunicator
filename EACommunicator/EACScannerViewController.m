@@ -112,8 +112,7 @@
 	NSString* contentT = [NSString stringWithContentsOfFile:pathT
 																								 encoding:NSUTF8StringEncoding
 																										error:NULL];
-	self.codes = [contentT componentsSeparatedByString:@"\r"];
-	
+	self.codes = [contentT componentsSeparatedByString:@"\r"];	
 }
 
 -(void) revealCamera
@@ -203,7 +202,14 @@
 		{
 			EACPlaybackViewController* playerViewController = self.delegate;
 			playerViewController.audioFileName = [NSString stringWithFormat:@"ea_duotr%@",sym.data];
+			
+			//load the audio file
 			[playerViewController loadAudioFile];
+			
+			//load the track metadata
+			[playerViewController loadTrackData:sym.data];
+			
+			//animate the pretransition view changes (light change and pause), then force transition back to the main screen
 			[UIView animateWithDuration:.05
 														delay:0
 													options:UIViewAnimationOptionCurveEaseIn
