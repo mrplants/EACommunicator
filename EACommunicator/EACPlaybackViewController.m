@@ -179,7 +179,7 @@
 	self.isPrepAdventure = [self.adventure_ID isEqualToString:@"PA"];
 //	NSLog(@"%d", self.isPrepAdventure);
 	
-	self.adventureNumber = [[scannedCode substringToIndex:indexOfAdventure_ID + 2] intValue];
+	self.adventureNumber = [[scannedCode substringFromIndex:indexOfAdventure_ID + 2] intValue];
 //	NSLog(@"%d", self.adventureNumber);
 }
 
@@ -814,6 +814,7 @@
 	[self stopPlaybackAnimations];
 	[self setCurrentTrackPlayed];
 	[self.player setCurrentTime:0];
+	[self applyElapsedTime];
 	self.animatedConcentricImageView.image = self.animatedConcentricImageArray[0];
 	self.elapsedImageView.image = self.elapsedVisualImageArray[[self.elapsedVisualImageArray count]-1];
 }
