@@ -135,9 +135,10 @@
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
+	[self loadUserDefaults];
+
 	if(![defaults boolForKey:@"hasBeenLaunchedBefore"])
 	{
-		[self loadUserDefaults];
 		[self performSegueWithIdentifier:@"Instructions Segue"
 															sender:self];
 			
@@ -173,17 +174,18 @@
 	int indexOfAdventure_ID = [scannedCode rangeOfString:@"_"].location + 1;
 	
 	self.adventure_ID = [scannedCode substringWithRange:NSMakeRange(indexOfAdventure_ID, 2)];
-	NSLog(@"%@", self.adventure_ID);
+//	NSLog(@"%@", self.adventure_ID);
 	
 	self.isPrepAdventure = [self.adventure_ID isEqualToString:@"PA"];
-	NSLog(@"%d", self.isPrepAdventure);
+//	NSLog(@"%d", self.isPrepAdventure);
 	
 	self.adventureNumber = [[scannedCode substringToIndex:indexOfAdventure_ID + 2] intValue];
-	NSLog(@"%d", self.adventureNumber);
+//	NSLog(@"%d", self.adventureNumber);
 }
 
 -(void)loadAudioFile
 {
+	[self stopPlaybackAnimations];
 	NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: [[NSBundle mainBundle] pathForResource:self.audioFileName
 																																											 ofType:@"mp3"]];
 	self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
@@ -216,12 +218,13 @@
 		NSMutableArray* tracksHaveBeenPlayedInfo = [[NSMutableArray alloc] init];
 		for (NSDictionary* track in playbackInfo)
 		{
-			if(track[kALREADY_PLAYED] && ([(NSString*)track[kADVENTURE_ID] isEqualToString:self.adventure_ID] || [(NSString*)track[kADVENTURE_ID] isEqualToString:@"PA"]))
-				[tracksHaveBeenPlayedInfo addObject:[NSNumber numberWithBool:YES]];
-			else
-				[tracksHaveBeenPlayedInfo addObject:[NSNumber numberWithBool:NO]];
+			if([(NSString*)track[kADVENTURE_ID] isEqualToString:self.adventure_ID] /*|| [(NSString*)track[kADVENTURE_ID] isEqualToString:@"PA"]*/)
+			{
+				if ([track[kALREADY_PLAYED] boolValue]) [tracksHaveBeenPlayedInfo addObject:[NSNumber numberWithBool:YES]];
+				else [tracksHaveBeenPlayedInfo addObject:[NSNumber numberWithBool:NO]];
+			}
 		}
-		[self applyPreviouslyPlayedTracks:tracksHaveBeenPlayedInfo];
+		if (![self.adventure_ID isEqualToString:@"PA"])[self applyPreviouslyPlayedTracks:tracksHaveBeenPlayedInfo];
 		
 		//show the title
 		if ([self.adventure_ID isEqualToString:@"PA"])
@@ -360,14 +363,49 @@
 
 -(void) applyPreviouslyPlayedTracks:(NSArray*)tracksHaveBeenPlayedInfo
 {
-#warning needs to be finished
-	
+	int trackIndex = 0;
+	for (NSNumber * wasPlayed in tracksHaveBeenPlayedInfo)
+	{
+		//allocate and initialize the two imageViews
+		UIImageView* dot = [[UIImageView alloc] init];
+		UIImageView* trackNumber = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"small%d.png", trackIndex+1]]];
+		
+		//give the correct image to the dot imageView
+    if ([wasPlayed boolValue]) dot.image = [UIImage imageNamed:@"dotfull.png"];
+		else dot.image = [UIImage imageNamed:@"dotempty.png"];
+		
+		//move them and scale them to the correct values;
+		dot.frame = CGRectMake(74 + 163.0 * trackIndex / [tracksHaveBeenPlayedInfo count],
+													 223,
+													 dot.image.size.width / 2,
+													 dot.image.size.height / 2);
+		trackNumber.frame = CGRectMake(0,
+																	 0,
+																	 trackNumber.image.size.width / 2,
+																	 trackNumber.image.size.height / 2);
+		trackNumber.center = CGPointMake(dot.frame.origin.x + 5, dot.frame.origin.y + 17);
+		
+		//set the content mode and other necessary properties
+		dot.contentMode = UIViewContentModeScaleAspectFit;
+		dot.layer.masksToBounds = YES;
+		trackNumber.contentMode = UIViewContentModeScaleAspectFit;
+		trackNumber.layer.masksToBounds = YES;
+		
+		//add them to the respective subview
+		[self.browserWindowImageView addSubview:dot];
+		[self.browserWindowImageView addSubview:trackNumber];
+		
+		//increment the trackIndex
+		trackIndex++;
+	}
 }
 
 -(void) updateBrowserTime
 {
-#warning needs to be finished
-	NSLog(@"%f / %f", self.player.currentTime, self.player.duration);
+	// This would be less jittery if the number images were set by their centers instead of their origins.
+	// Consider it. There is significant improvement to be made
+	
+//	NSLog(@"%f / %f", self.player.currentTime, self.player.duration);
 	
 	float currentTime = self.player.currentTime;
 	
@@ -396,15 +434,15 @@
 	int seventhNumber = totalSeconds  / 10;
 	int eighthNumber = totalSeconds - seventhNumber * 10;
 	
-	NSLog(@"%d%d:%d%d of %d%d:%d%d",
-				firstNumber,
-				secondNumber,
-				thirdNumber,
-				fourthNumber,
-				fifthNumber,
-				sixthNumber,
-				seventhNumber,
-				eighthNumber);
+//	NSLog(@"%d%d:%d%d of %d%d:%d%d",
+//				firstNumber,
+//				secondNumber,
+//				thirdNumber,
+//				fourthNumber,
+//				fifthNumber,
+//				sixthNumber,
+//				seventhNumber,
+//				eighthNumber);
 	
 	UIImage * fifthNumberImage = [UIImage imageNamed:[NSString stringWithFormat:@"big%d.png", fifthNumber]];
 	UIImage * sixthNumberImage = [UIImage imageNamed:[NSString stringWithFormat:@"big%d.png", sixthNumber]];
@@ -449,26 +487,26 @@
 		switch (imageIndex) {
 			case 0:
 			case 6:
-				origin = CGPointMake(71 + imageIndex / 6 * 84, 205);
+				origin = CGPointMake(76 + imageIndex / 6 * 86, 205);
 				break;
 			case 1:
 			case 7:
-				origin = CGPointMake(87 + imageIndex / 6 * 84, 205);
+				origin = CGPointMake(92 + imageIndex / 6 * 86, 205);
 				break;
 			case 2:
 			case 8:
-				origin = CGPointMake(103 + imageIndex / 6 * 84, 207);
+				origin = CGPointMake(108 + imageIndex / 6 * 86, 207);
 				break;
 			case 3:
 			case 9:
-				origin = CGPointMake(111 + imageIndex / 6 * 84, 205);
+				origin = CGPointMake(116 + imageIndex / 6 * 86, 205);
 				break;
 			case 4:
 			case 10:
-				origin = CGPointMake(127 + imageIndex / 6 * 84, 205);
+				origin = CGPointMake(132 + imageIndex / 6 * 86, 205);
 				break;
 			case 5:
-				origin = CGPointMake(140 + imageIndex / 6 * 84, 206);
+				origin = CGPointMake(147, 206);
 				break;
 				
 			default:
@@ -488,6 +526,7 @@
 
 -(void) setCurrentTrackPlayed
 {
+	[self applyElapsedTime];
 	//apply the NSUserDefaults that will set this track to "isPlayed = YES"
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
@@ -506,10 +545,10 @@
 			NSNumber * isPrepAdventure = [NSNumber numberWithBool:[adventureID isEqualToString:@"PA"]];
 			
 			//check the track data
-			NSLog(@"adventure ID: %@", adventureID);
-			NSLog(@"adventure number: %@", adventureNumber);
-			NSLog(@"already played: %@", alreadyPlayed);
-			NSLog(@"is prep adventure: %@", isPrepAdventure);
+//			NSLog(@"adventure ID: %@", adventureID);
+//			NSLog(@"adventure number: %@", adventureNumber);
+//			NSLog(@"already played: %@", alreadyPlayed);
+//			NSLog(@"is prep adventure: %@", isPrepAdventure);
 			
 			//assemble the track data
 			NSDictionary* track = @{kADVENTURE_ID: adventureID,
@@ -524,7 +563,7 @@
 		playbackInfo = [tempPlaybackInfo copy];
 	}
 	
-	//keep track of where we are because we need to overwrite all the track infor in placybackinfo. Darn immutable things
+	//keep track of where we are because we need to overwrite all the track info in playbackinfo. Darn immutable things
 	NSMutableArray* tempPlaybackInfo = [[NSMutableArray alloc] init];
 	
 	for (NSDictionary* track in playbackInfo)
@@ -565,10 +604,10 @@
 			NSNumber * isPrepAdventure = [NSNumber numberWithBool:[adventureID isEqualToString:@"PA"]];
 			
 			//check the track data
-			NSLog(@"adventure ID: %@", adventureID);
-			NSLog(@"adventure number: %@", adventureNumber);
-			NSLog(@"already played: %@", alreadyPlayed);
-			NSLog(@"is prep adventure: %@", isPrepAdventure);
+//			NSLog(@"adventure ID: %@", adventureID);
+//			NSLog(@"adventure number: %@", adventureNumber);
+//			NSLog(@"already played: %@", alreadyPlayed);
+//			NSLog(@"is prep adventure: %@", isPrepAdventure);
 			
 			//assemble the track data
 			NSDictionary* track = @{kADVENTURE_ID: adventureID,
@@ -582,6 +621,14 @@
 		
 		playbackInfo = [tempPlaybackInfo copy];
 	}
+	
+//	for (NSDictionary * track in playbackInfo)
+//	{
+//		NSLog(@"adventure ID: %@", track[kADVENTURE_ID]);
+//		NSLog(@"adventure number: %@", track[kADVENTURE_NUMBER]);
+//		NSLog(@"already played: %@", track[kALREADY_PLAYED]);
+//		NSLog(@"is prep adventure: %@", track[kIS_PREP_ADVENTURE]);
+//	}
 	[defaults setObject:playbackInfo forKey:kPLAYBACK_USER_DEFAULTS];
 	
 	[defaults synchronize];
@@ -596,10 +643,10 @@
 	for (NSDictionary*track in playbackInfo)
 	{
 		//check the track data
-		NSLog(@"adventure ID: %@", track[kADVENTURE_ID]);
-		NSLog(@"adventure number: %@", track[kADVENTURE_NUMBER]);
-		NSLog(@"already played: %@", track[kALREADY_PLAYED]);
-		NSLog(@"is prep adventure: %@", track[kIS_PREP_ADVENTURE]);
+//		NSLog(@"adventure ID: %@", track[kADVENTURE_ID]);
+//		NSLog(@"adventure number: %@", track[kADVENTURE_NUMBER]);
+//		NSLog(@"already played: %@", track[kALREADY_PLAYED]);
+//		NSLog(@"is prep adventure: %@", track[kIS_PREP_ADVENTURE]);
 
 	}
 }
@@ -765,6 +812,7 @@
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
 {
 	[self stopPlaybackAnimations];
+	[self setCurrentTrackPlayed];
 	[self.player setCurrentTime:0];
 	self.animatedConcentricImageView.image = self.animatedConcentricImageArray[0];
 	self.elapsedImageView.image = self.elapsedVisualImageArray[[self.elapsedVisualImageArray count]-1];
