@@ -145,6 +145,8 @@
 		[defaults setBool:YES forKey:@"hasBeenLaunchedBefore"];
 		[defaults synchronize];
 	}
+	
+	if(self.player) [self.player play];
 }
 
 -(void)iPhone5Setup

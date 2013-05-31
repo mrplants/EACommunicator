@@ -211,39 +211,52 @@
                         <subviews>
                             <scrollView clipsSubviews="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sBX-2q-IrQ">
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" image="instructional cards 1.png" translatesAutoresizingMaskIntoConstraints="NO" id="WQR-ZP-EmV">
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="instructional cards 1.png" translatesAutoresizingMaskIntoConstraints="NO" id="WQR-ZP-EmV">
                                         <constraints>
                                             <constraint firstAttribute="height" constant="248" id="dTO-vr-kdu"/>
                                         </constraints>
                                     </imageView>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tVd-PJ-ecZ">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="114" id="GfH-s8-zF6"/>
+                                            <constraint firstAttribute="height" constant="44" id="vKF-dF-qTU"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                        <state key="normal" backgroundImage="roundPlayButton.png">
+                                            <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="wH6-ld-Clf">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="132" id="760-Ce-rk5"/>
+                                        </constraints>
+                                        <string key="text">Open your Engineering Journal to a "Message from the Duo" page. Press the QR code button at the bottom of your communicator screen.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="wH6-ld-Clf" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="09v-cL-zyL"/>
+                                    <constraint firstItem="tVd-PJ-ecZ" firstAttribute="top" secondItem="sBX-2q-IrQ" secondAttribute="top" constant="20" symbolic="YES" type="default" id="0Sx-B6-a9D"/>
+                                    <constraint firstItem="tVd-PJ-ecZ" firstAttribute="centerX" secondItem="WQR-ZP-EmV" secondAttribute="centerX" type="default" id="5YR-2K-VNt"/>
                                     <constraint firstItem="WQR-ZP-EmV" firstAttribute="leading" secondItem="sBX-2q-IrQ" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="QU0-RA-Hsy"/>
-                                    <constraint firstItem="WQR-ZP-EmV" firstAttribute="centerY" secondItem="sBX-2q-IrQ" secondAttribute="centerY" type="default" id="Xxu-yW-Z4J"/>
+                                    <constraint firstItem="wH6-ld-Clf" firstAttribute="leading" secondItem="sBX-2q-IrQ" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="al5-m5-OA9"/>
+                                    <constraint firstItem="wH6-ld-Clf" firstAttribute="top" secondItem="WQR-ZP-EmV" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="cb6-gm-6vM"/>
                                     <constraint firstAttribute="trailing" secondItem="WQR-ZP-EmV" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="h8X-pm-jEJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="WQR-ZP-EmV" secondAttribute="bottom" constant="150" id="nli-BC-3nP"/>
+                                    <constraint firstItem="WQR-ZP-EmV" firstAttribute="top" secondItem="tVd-PJ-ecZ" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="oW3-VH-iUZ"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tVd-PJ-ecZ">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="114" id="GfH-s8-zF6"/>
-                                    <constraint firstAttribute="height" constant="44" id="vKF-dF-qTU"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" size="button"/>
-                                <state key="normal" backgroundImage="roundPlayButton.png">
-                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="0c6-VC-A2I">
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -256,14 +269,13 @@
                             <constraint firstItem="0c6-VC-A2I" firstAttribute="leading" secondItem="Ffp-HO-dhm" secondAttribute="leading" type="default" id="2qK-jK-pgI"/>
                             <constraint firstItem="sBX-2q-IrQ" firstAttribute="bottom" secondItem="Ffp-HO-dhm" secondAttribute="bottom" type="default" id="Dyt-xj-4dA"/>
                             <constraint firstItem="0c6-VC-A2I" firstAttribute="trailing" secondItem="Ffp-HO-dhm" secondAttribute="trailing" type="default" id="Kz6-9o-9d5"/>
-                            <constraint firstItem="tVd-PJ-ecZ" firstAttribute="top" secondItem="Ffp-HO-dhm" secondAttribute="top" constant="20" symbolic="YES" type="user" id="NyN-D0-RIh"/>
                             <constraint firstItem="sBX-2q-IrQ" firstAttribute="top" secondItem="Ffp-HO-dhm" secondAttribute="top" type="default" id="gqf-BQ-cAg"/>
-                            <constraint firstItem="tVd-PJ-ecZ" firstAttribute="centerX" secondItem="0c6-VC-A2I" secondAttribute="centerX" type="default" id="o7N-yB-SqF"/>
                             <constraint firstItem="sBX-2q-IrQ" firstAttribute="trailing" secondItem="Ffp-HO-dhm" secondAttribute="trailing" type="default" id="sGv-g2-gay"/>
                             <constraint firstItem="0c6-VC-A2I" firstAttribute="bottom" secondItem="Ffp-HO-dhm" secondAttribute="bottom" type="default" id="yWU-wR-p6K"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="instructMessage" destination="wH6-ld-Clf" id="RxQ-Uf-DXI"/>
                         <outlet property="instructionImageView" destination="WQR-ZP-EmV" id="KVy-eT-Tdn"/>
                         <outlet property="instructionPageControl" destination="0c6-VC-A2I" id="7Xh-a6-l4x"/>
                         <outlet property="playButton" destination="tVd-PJ-ecZ" id="kwC-bx-pTF"/>
@@ -292,6 +304,50 @@
         <image name="scanner-light-red.png" width="640" height="960"/>
         <image name="track02.png" width="640" height="960"/>
     </resources>
+    <classes>
+        <class className="EACInstructionViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EACInstructionViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changePage:"/>
+                <relationship kind="outlet" name="instructMessage" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="instructionImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="instructionPageControl" candidateClass="UIPageControl"/>
+                <relationship kind="outlet" name="playButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="EACPlaybackViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EACPlaybackViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="animatedBarsImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="animatedConcentricImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="backgroundImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="browserWindowImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="elapsedImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="playButtonImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="resizeView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="scanButtonImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="trackNumberImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="EACScannerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EACScannerViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="backgroundImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="cameraShutterView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="crosshairsImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="resizingImageView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="scannerLightImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="zBarReaderView" candidateClass="ZBarReaderView"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="ZBarReaderView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ZBarReaderView.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

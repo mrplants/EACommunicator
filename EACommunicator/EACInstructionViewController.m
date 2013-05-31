@@ -21,6 +21,8 @@
 
 @property (nonatomic, strong) NSArray * instructionImageArray;
 
+@property (weak, nonatomic) IBOutlet UILabel *instructMessage;
+
 @end
 
 @implementation EACInstructionViewController
@@ -36,14 +38,18 @@
 																[UIImage imageNamed:@"instructional cards 3.png"]];
 	self.instructionPageControl.numberOfPages = [self.instructionImageArray count];
 	self.instructionPageControl.currentPage = 0;
-	self.playButton.layer.cornerRadius = 10; // this value vary as per your desire
+	self.playButton.layer.cornerRadius = 10;
 	self.playButton.clipsToBounds = YES;
 
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+}
+
 -(void)viewDidAppear:(BOOL)animated
 {
-	[super viewDidAppear:animated];
 	CGRect mainFrame = self.scrollView.frame;
 	[self.scrollView setFrame:CGRectMake(self.scrollView.frame.size.width,
 																			0,
@@ -53,6 +59,7 @@
 	[UIView animateWithDuration:0.1 animations:^() {
 		self.scrollView.frame = mainFrame;
 	}];
+	[super viewDidAppear:animated];
 }
 
 -(void)setupScrollView
@@ -62,17 +69,45 @@
 																					 CGRectGetHeight(self.scrollView.frame));
 	int imageCounter = 0;
 	
+	//remove the stock images form their superview
 	[self.instructionImageView removeFromSuperview];
+	[self.instructMessage removeFromSuperview];
+	
+	//add in the instruction images that we need
 	for (UIImage* instructionImage in self.instructionImageArray)
 	{
 		//create the new imageView
 		UIImageView* instructionImageView = [[UIImageView alloc] initWithImage:instructionImage];
+		UILabel* instructionLabel = [[UILabel alloc] init];
 		
 		//create the correct frame for the imageview.
 		[instructionImageView setFrame:CGRectMake(self.instructionImageView.frame.origin.x + self.scrollView.frame.size.width * imageCounter,
 																							self.instructionImageView.frame.origin.y,
 																							self.instructionImageView.frame.size.width,
 																							self.instructionImageView.frame.size.height)];
+		[instructionLabel setFrame:CGRectMake(self.instructMessage.frame.origin.x + self.scrollView.frame.size.width * imageCounter,
+																					self.instructMessage.frame.origin.y,
+																					self.instructMessage.frame.size.width,
+																					self.instructMessage.frame.size.height)];
+		
+		NSString* instructionText;
+		switch (imageCounter) {
+			case 0:
+				instructionText = @"Open your Engineering Journal to a \"Message from the Duo\" page. Press the QR code button at the bottom of your communicator screen.";
+				break;
+			case 1:
+				instructionText = @"Hold your device over the QR code in your Engineering Journal. The crosshairs will turn from red to green once the code is aligned and recognized.";
+				break;
+			case 2:
+				instructionText = @"India and Jacob's message will begin playing automatically!";
+				
+			default:
+				break;
+		}
+		instructionLabel.text = instructionText;
+		instructionLabel.backgroundColor = [UIColor blackColor];
+		instructionLabel.textColor = [UIColor whiteColor];
+		instructionLabel.numberOfLines = 5;
 		
 		//make it look nice with rounded corners
 		instructionImageView.layer.cornerRadius = 20.0;
@@ -80,6 +115,7 @@
 				
 		//add it as a subview
 		[self.scrollView addSubview:instructionImageView];
+		[self.scrollView addSubview:instructionLabel];
     imageCounter++;
 	}
 	
