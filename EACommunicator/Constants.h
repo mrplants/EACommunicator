@@ -9,6 +9,8 @@
 #ifndef EACommunicator_Constants_h
 #define EACommunicator_Constants_h
 
+#define TESTING_MODE (YES)
+
 #define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 #define TRANSITION_TIME (.5)

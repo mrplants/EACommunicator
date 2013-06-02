@@ -108,6 +108,7 @@
 		instructionLabel.backgroundColor = [UIColor blackColor];
 		instructionLabel.textColor = [UIColor whiteColor];
 		instructionLabel.numberOfLines = 5;
+		instructionLabel.textAlignment = NSTextAlignmentCenter;
 		
 		//make it look nice with rounded corners
 		instructionImageView.layer.cornerRadius = 20.0;

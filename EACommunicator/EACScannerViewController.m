@@ -32,6 +32,8 @@
 
 //codes that we are looking for
 @property (nonatomic, strong) NSArray * codes;
+@property (nonatomic, strong) NSArray * preScannedAudioMappings;
+@property (nonatomic, strong) NSDictionary * audioMap;
 
 @property BOOL isProcessingSampleFrame;
 
@@ -112,7 +114,26 @@
 	NSString* contentT = [NSString stringWithContentsOfFile:pathT
 																								 encoding:NSUTF8StringEncoding
 																										error:NULL];
-	self.codes = [contentT componentsSeparatedByString:@"\r"];	
+	self.preScannedAudioMappings = [contentT componentsSeparatedByString:@"\r"];
+	
+	NSMutableArray * tempCodes = [[NSMutableArray alloc] init];
+	
+	NSMutableDictionary * tempAudioMap = [[NSMutableDictionary alloc] init];
+	for (NSString* audioMap in self.preScannedAudioMappings)
+	{
+    NSString* filename = [audioMap substringToIndex:[audioMap rangeOfString:@","].location];
+//		NSLog(@"file name: %@", filename);
+		
+		NSString* url = [audioMap substringFromIndex:[audioMap rangeOfString:@","].location+1];
+//		NSLog(@"url: %@", url);
+		
+		[tempAudioMap setObject:filename forKey:url];
+		[tempCodes addObject:url];
+	}
+	
+	//save the temp values tot he non-temp properties
+	self.audioMap = [tempAudioMap copy];
+	self.codes = [tempCodes copy];
 }
 
 -(void) revealCamera
@@ -201,7 +222,7 @@
 		if ([self isCorrectCode:sym.data])
 		{
 			EACPlaybackViewController* playerViewController = self.delegate;
-			playerViewController.audioFileName = [NSString stringWithFormat:@"ea_duotr%@",sym.data];
+			playerViewController.audioFileName = self.audioMap[sym.data];
 			
 			//load the audio file
 			[playerViewController loadAudioFile];
