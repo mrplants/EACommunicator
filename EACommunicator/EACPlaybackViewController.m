@@ -320,6 +320,7 @@
 	NSString * adventureNumberImageName;
 	NSString * smallerAdventureNumberImageName;
 	if (self.isPrepAdventure) adventureNumberImageName = [NSString stringWithFormat:@"trackP%d.png", self.adventureNumber];
+	else if (self.isSubAdventure) adventureNumberImageName = [NSString stringWithFormat:@"track%dA.png", self.adventureNumber];
 	else adventureNumberImageName = [NSString stringWithFormat:@"track%d.png", self.adventureNumber];
 	
 	smallerAdventureNumberImageName = [NSString stringWithFormat:@"big%d.png", self.adventureNumber];
@@ -353,7 +354,7 @@
 		smallerAdventureImageViewA.contentMode = UIViewContentModeScaleAspectFit;
 		smallerAdventureImageViewA.clipsToBounds = YES;
 		[self.browserWindowImageView addSubview:smallerAdventureImageViewA];
-		smallerAdventureImageViewA.center = CGPointMake(smallerAdventureImageViewA.center.x + 6, smallerAdventureImageViewA.center.y - 2);
+		smallerAdventureImageViewA.center = CGPointMake(smallerAdventureImageViewA.center.x + smallerAdventureNumberImageView.frame.size.width, smallerAdventureImageViewA.center.y - 2);
 		smallerAdventureNumberImageView.center = CGPointMake(smallerAdventureNumberImageView.center.x, smallerAdventureNumberImageView.center.y);
 		
 //	adventureNumberImageView.image = [NSString stringWithFormat:@"track%dA.png", self.adventureNumber];
