@@ -1016,6 +1016,15 @@ NSInteger sortTracks(id track1, id track2, void *context)
 	float channelRatio = 1 - [self.player peakPowerForChannel:0] / [self.player averagePowerForChannel:0];
 	
 	int concentricCircleLevel = [self.animatedConcentricImageArray count] * channelRatio;
+	
+	if (concentricCircleLevel > 12)
+	{
+		concentricCircleLevel = 12;
+	}
+	if (concentricCircleLevel < 0)
+	{
+		concentricCircleLevel = 0;
+	}
 	self.animatedConcentricImageView.image = self.animatedConcentricImageArray[concentricCircleLevel];
 }
 
@@ -1174,6 +1183,12 @@ NSInteger sortTracks(id track1, id track2, void *context)
 -(void)audioPlayerEndInterruption:(AVAudioPlayer *)player withOptions:(NSUInteger)flags
 {
 	[self startPlaybackAnimations];
+}
+
+-(void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error
+{
+	NSLog(@"audio error: %@", error);
+	[player stop];
 }
 
 #ifdef TESTING_MODE
