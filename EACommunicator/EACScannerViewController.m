@@ -41,6 +41,10 @@
 
 @implementation EACScannerViewController
 
+-(BOOL)prefersStatusBarHidden
+{
+	return YES;
+}
 
 -(void)viewDidLoad
 {

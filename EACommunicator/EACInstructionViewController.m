@@ -27,6 +27,10 @@
 
 @implementation EACInstructionViewController
 
+-(BOOL)prefersStatusBarHidden
+{
+	return YES;
+}
 
 -(void)viewDidLoad
 {

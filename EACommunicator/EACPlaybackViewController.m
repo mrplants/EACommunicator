@@ -73,6 +73,11 @@
 
 @implementation EACPlaybackViewController
 
+-(BOOL)prefersStatusBarHidden
+{
+	return YES;
+}
+
 -(void)viewDidLoad
 {
 	
