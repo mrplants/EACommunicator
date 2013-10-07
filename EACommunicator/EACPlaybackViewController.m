@@ -212,6 +212,8 @@
 {
 	NSString * audioFilename = self.audioMap[scannedCode];
 	
+	NSLog(@"audio file: %@", audioFilename);
+	
 	NSString * code = [audioFilename substringFromIndex:8];
 	
 	int indexOfAdventure_ID = [code rangeOfString:@"_"].location + 1;
