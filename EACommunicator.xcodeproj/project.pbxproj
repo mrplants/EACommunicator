@@ -148,6 +148,7 @@
 		2C75447C174CFACB00B353D0 /* icon01-114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75447B174CFACB00B353D0 /* icon01-114x114.png */; };
 		2C75448A174D006800B353D0 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C754489174D006800B353D0 /* Default@2x.png */; };
 		2C754490174D068F00B353D0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75448F174D068F00B353D0 /* Default-568h@2x.png */; };
+		2CA3BC0B180379FE00F6E640 /* Communicator_iOS7_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CA3BC0A180379FE00F6E640 /* Communicator_iOS7_icon.png */; };
 		2CA8A8B41756B40B0012718E /* big0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CA8A8811756B40B0012718E /* big0.png */; };
 		2CA8A8B51756B40B0012718E /* big1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CA8A8821756B40B0012718E /* big1.png */; };
 		2CA8A8B61756B40B0012718E /* big2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CA8A8831756B40B0012718E /* big2.png */; };
@@ -373,6 +374,7 @@
 		2C75447B174CFACB00B353D0 /* icon01-114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon01-114x114.png"; path = "../icon01-114x114.png"; sourceTree = "<group>"; };
 		2C754489174D006800B353D0 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
 		2C75448F174D068F00B353D0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
+		2CA3BC0A180379FE00F6E640 /* Communicator_iOS7_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Communicator_iOS7_icon.png; sourceTree = "<group>"; };
 		2CA8A8811756B40B0012718E /* big0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = big0.png; sourceTree = "<group>"; };
 		2CA8A8821756B40B0012718E /* big1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = big1.png; sourceTree = "<group>"; };
 		2CA8A8831756B40B0012718E /* big2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = big2.png; sourceTree = "<group>"; };
@@ -661,6 +663,7 @@
 		2C7543EE174CF06D00B353D0 = {
 			isa = PBXGroup;
 			children = (
+				2CA3BC0A180379FE00F6E640 /* Communicator_iOS7_icon.png */,
 				2C1A37EB176231A700FF55DA /* libzbar.a */,
 				2C754400174CF06D00B353D0 /* EACommunicator */,
 				2C7543F9174CF06D00B353D0 /* Frameworks */,
@@ -1017,6 +1020,7 @@
 				2C177960180294B800E926E9 /* ea_duotr4_EQ2.mp3 in Resources */,
 				2C52199D1750596A00C2BF8A /* normalPlayPause.png in Resources */,
 				2C2BEDAB180334C4001A96F5 /* ea_duotr2_PA2.mp3 in Resources */,
+				2CA3BC0B180379FE00F6E640 /* Communicator_iOS7_icon.png in Resources */,
 				2CA8A8B41756B40B0012718E /* big0.png in Resources */,
 				2CA8A8B51756B40B0012718E /* big1.png in Resources */,
 				2C177980180294B800E926E9 /* ea_duotr7_LO5.mp3 in Resources */,
