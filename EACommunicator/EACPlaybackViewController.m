@@ -190,14 +190,21 @@
 	NSMutableDictionary * tempAudioMap = [[NSMutableDictionary alloc] init];
 	for (NSString* audioMap in self.preScannedAudioMappings)
 	{
-    NSString* filename = [audioMap substringToIndex:[audioMap rangeOfString:@","].location];
-		//		NSLog(@"file name: %@", filename);
+		NSArray * audioFileInformation = [audioMap componentsSeparatedByString:@","];
+//		NSLog(@"%@", audioFileInformation);
+		if ([audioFileInformation[0] isEqualToString:@"Audio_File_Name"]) continue;
 		
-		NSString* url = [audioMap substringFromIndex:[audioMap rangeOfString:@","].location+1];
-		//		NSLog(@"url: %@", url);
-		
-		[tempAudioMap setObject:filename forKey:url];
+		//build the audio file dictionary from the CSV that correspond to the metadata of the audio files
+		NSDictionary * audioFileDictionary = @{AUDIO_FILE_NAME : audioFileInformation[0],
+																					 URL : audioFileInformation[1],
+																					 ADVENTURE_NUMBER : audioFileInformation[2],
+																					 UNIT : audioFileInformation[3],
+																					 SUBADVENTURE : audioFileInformation[4]};
+				
+		[tempAudioMap setObject:audioFileDictionary	forKey:audioFileDictionary[URL]];
 	}
+	
+	NSLog(@"%@", tempAudioMap);
 	
 	self.audioMap = [tempAudioMap copy];
 }
@@ -212,7 +219,7 @@
 {
 	NSString * audioFilename = self.audioMap[scannedCode];
 	
-	NSLog(@"audio file: %@", audioFilename);
+//	NSLog(@"audio file: %@", audioFilename);
 	
 	NSString * code = [audioFilename substringFromIndex:8];
 	
@@ -802,12 +809,12 @@ NSInteger sortTracks(id track1, id track2, void *context)
 			//NSLog(@"adventure ID: %@", adventureID);
 			//NSLog(@"adventure number: %@", adventureNumber);
 			//NSLog(@"already played: %@", alreadyPlayed);
-			NSLog(@"is prep adventure: %@", isPrepAdventure);
+//			NSLog(@"is prep adventure: %@", isPrepAdventure);
 			
 			if ([isPrepAdventure boolValue])
 			{
 				NSString * prepAdventureID = [url substringWithRange:NSMakeRange([url rangeOfString:adventureID].location - 3, 2)];
-				NSLog(@"prep adventure ID: %@", prepAdventureID);
+//				NSLog(@"prep adventure ID: %@", prepAdventureID);
 				
 				//assemble the track data
 				NSDictionary* track = @{kADVENTURE_ID: adventureID,
@@ -917,12 +924,12 @@ NSInteger sortTracks(id track1, id track2, void *context)
 			//NSLog(@"adventure ID: %@", adventureID);
 			//NSLog(@"adventure number: %@", adventureNumber);
 			//NSLog(@"already played: %@", alreadyPlayed);
-			NSLog(@"is prep adventure: %@", isPrepAdventure);
+//			NSLog(@"is prep adventure: %@", isPrepAdventure);
 			
 			if ([isPrepAdventure boolValue])
 			{
 				NSString * prepAdventureID = [url substringWithRange:NSMakeRange([url rangeOfString:adventureID].location - 3, 2)];
-				NSLog(@"prep adventure ID: %@", prepAdventureID);
+//				NSLog(@"prep adventure ID: %@", prepAdventureID);
 				
 				//assemble the track data
 				NSDictionary* track = @{kADVENTURE_ID: adventureID,
