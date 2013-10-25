@@ -12,9 +12,8 @@
 #include "TargetConditionals.h"
 #import <AVFoundation/AVFoundation.h>
 #import <CoreVideo/CoreVideo.h>
-#import "ZBarSDK.h"
 
-@interface EACScannerViewController () <ZBarReaderViewDelegate>
+@interface EACScannerViewController () <AVCaptureMetadataOutputObjectsDelegate>
 
 //image Views
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
@@ -27,13 +26,13 @@
 @property (strong, nonatomic) NSArray *scannerLightImageArray;
 
 //camera equipment
-@property (weak, nonatomic) IBOutlet ZBarReaderView *zBarReaderView;
+@property (nonatomic ,strong) AVCaptureSession * videoSession;
+@property (weak, nonatomic) IBOutlet UIView * cameraView;
 @property (weak, nonatomic) IBOutlet UIView *cameraShutterView;
+@property BOOL foundCode;
 
 //codes that we are looking for
 @property (nonatomic, strong) NSArray * codes;
-@property (nonatomic, strong) NSArray * preScannedAudioMappings;
-@property (nonatomic, strong) NSDictionary * audioMap;
 
 @property BOOL isProcessingSampleFrame;
 
@@ -48,7 +47,6 @@
 
 -(void)viewDidLoad
 {
-	[ZBarReaderView class];
 	[super viewDidLoad];
 
 #define BLANK 0
@@ -66,8 +64,6 @@
 	 [UIImage imageNamed:@"scanner-light-green.png"],
 	 [UIImage imageNamed:@"scanner-light-red.png"]
 	 ];
-	
-	[self loadAudioCSV];
 }
 
 -(void)viewDidLayoutSubviews
@@ -80,11 +76,101 @@
 
 }
 
+-(void)setupCamera
+{
+	AVCaptureSession *session = [[AVCaptureSession alloc] init];
+	AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+	NSError *error = nil;
+	
+	AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device
+																																			error:&error];
+	if (input) {
+    [session addInput:input];
+	} else {
+    NSLog(@"Error: %@", error);
+	}
+	
+	AVCaptureMetadataOutput *output = [[AVCaptureMetadataOutput alloc] init];
+	[output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
+	[session addOutput:output];
+
+	NSLog(@"%@", [output availableMetadataObjectTypes]);
+	
+	[output setMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
+	
+	AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
+	
+	[captureVideoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+	[captureVideoPreviewLayer setFrame:self.cameraView.bounds];
+	
+	CALayer *rootLayer = [self.cameraView layer];
+	[rootLayer setBackgroundColor:[[UIColor blackColor] CGColor]];
+	[rootLayer addSublayer:captureVideoPreviewLayer];
+	
+	[session startRunning];
+}
+
+#pragma mark - AVCaptureMetadataOutputObjectsDelegate
+
+- (void)captureOutput:(AVCaptureOutput *)captureOutput
+didOutputMetadataObjects:(NSArray *)metadataObjects
+       fromConnection:(AVCaptureConnection *)connection
+{
+	NSString *QRCode = nil;
+	for (AVMetadataObject *metadata in metadataObjects) {
+		if ([metadata.type isEqualToString:AVMetadataObjectTypeQRCode]) {
+			// This will never happen; nobody has ever scanned a QR code... ever
+			QRCode = [(AVMetadataMachineReadableCodeObject *)metadata stringValue];
+			break;
+		}
+	}
+	
+	if ([self isCorrectCode:QRCode] && !self.foundCode)
+	{
+		self.foundCode = YES;
+		
+		EACPlaybackViewController* playerViewController = self.delegate;
+		playerViewController.audioFileDictionary = self.audioMap[QRCode];
+		
+		//load the audio file
+		[playerViewController loadAudioFile];
+		
+		//load the track metadata
+		[playerViewController loadTrackData:QRCode];
+		
+		//animate the pretransition view changes (light change and pause), then force transition back to the main screen
+		[UIView animateWithDuration:.05
+													delay:0
+												options:UIViewAnimationOptionCurveEaseIn
+										 animations:^(void) {
+											 self.scannerLightImageView.alpha = 0;
+											 self.crosshairsImageView.alpha = 0;
+										 }
+										 completion:^(BOOL finished){
+											 self.scannerLightImageView.image = self.scannerLightImageArray[GREEN];
+											 self.crosshairsImageView.image = self.crosshairImageArray[GREEN];
+											 [UIView animateWithDuration:.05
+																						 delay:0
+																					 options:UIViewAnimationOptionCurveEaseOut
+																				animations:^(){
+																					self.scannerLightImageView.alpha = 1;
+																					self.crosshairsImageView.alpha = 1;
+																				} completion:^(BOOL finished){
+																					[NSThread sleepForTimeInterval:0.45f];
+																					[self backButtonTapped];
+																				}];
+										 }];
+		NSLog(@"QR Code that is being used: %@", QRCode);
+	}
+	
+	NSLog(@"QR Code: %@", QRCode);
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
 
-	[self setupZBar];
+	[self setupCamera];
 
 	if (IS_IPHONE_5)
 	{
@@ -94,50 +180,14 @@
 	
 }
 
--(void) setupZBar
-{
-	//cropping sizes taken from the original scan image
-
-	// the delegate receives decode results
-	self.zBarReaderView.readerDelegate = self;
-	self.zBarReaderView.tracksSymbols = NO;
-	self.zBarReaderView.allowsPinchZoom = NO;
-}
-
 -(void)iPhone5Setup
 {	
 	//move the dynamic images down so they still line up with the slots in the background image
 	self.resizingImageView.frame = CGRectMake(0, 44, self.resizingImageView.frame.size.width, self.resizingImageView.frame.size.height);
-	self.zBarReaderView.frame = CGRectMake(self.zBarReaderView.frame.origin.x, self.zBarReaderView.frame.origin.y + 44, self.zBarReaderView.frame.size.width, self.zBarReaderView.frame.size.height);
-}
-
--(void) loadAudioCSV
-{
-	NSString* pathT = [[NSBundle mainBundle] pathForResource:@"EACommunicatorAudioDataModel"
-																										ofType:@"csv"];
-	NSString* contentT = [NSString stringWithContentsOfFile:pathT
-																								 encoding:NSUTF8StringEncoding
-																										error:NULL];
-	self.preScannedAudioMappings = [contentT componentsSeparatedByString:@"\r"];
-	
-	NSMutableArray * tempCodes = [[NSMutableArray alloc] init];
-	
-	NSMutableDictionary * tempAudioMap = [[NSMutableDictionary alloc] init];
-	for (NSString* audioMap in self.preScannedAudioMappings)
-	{
-    NSString* filename = [audioMap substringToIndex:[audioMap rangeOfString:@","].location];
-//		NSLog(@"file name: %@", filename);
-		
-		NSString* url = [audioMap substringFromIndex:[audioMap rangeOfString:@","].location+1];
-//		NSLog(@"url: %@", url);
-		
-		[tempAudioMap setObject:filename forKey:url];
-		[tempCodes addObject:url];
-	}
-	
-	//save the temp values tot he non-temp properties
-	self.audioMap = [tempAudioMap copy];
-	self.codes = [tempCodes copy];
+	self.cameraView.frame = CGRectMake(self.cameraView.frame.origin.x,
+																		 self.cameraView.frame.origin.y + 44,
+																		 self.cameraView.frame.size.width,
+																		 self.cameraView.frame.size.height);
 }
 
 -(void) revealCamera
@@ -188,77 +238,22 @@
 	// run the reader when the view is visible
 //	self.scannerLightImageView.image = self.scannerLightImageArray[BLANK];
 //	self.crosshairsImageView.image = self.crosshairImageArray[BLANK];
-	[self.zBarReaderView start];
+	[self.videoSession startRunning];
 	[self revealCamera];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
 {
 	[super viewDidDisappear:animated];
-	[self.zBarReaderView stop];
-}
-
--(void)dealloc
-{
-	[self cleanup];
-}
-
-- (void) cleanup
-{
-	self.zBarReaderView.readerDelegate = nil;
-	self.zBarReaderView = nil;
+	[self.videoSession stopRunning];
 }
 
 - (void) willRotateToInterfaceOrientation: (UIInterfaceOrientation) orient
 																 duration: (NSTimeInterval) duration
 {
 	// compensate for view rotation so camera preview is not rotated
-	[self.zBarReaderView willRotateToInterfaceOrientation: orient
-																			duration: duration];
+//	[self.cameraView willRotateToInterfaceOrientation: orient duration: duration];
 	[super willRotateToInterfaceOrientation:orient duration:duration];
-}
-
-- (void) readerView: (ZBarReaderView*) view
-		 didReadSymbols: (ZBarSymbolSet*) syms
-					fromImage: (UIImage*) img
-{
-	for(ZBarSymbol *sym in syms) {
-		if ([self isCorrectCode:sym.data])
-		{
-			EACPlaybackViewController* playerViewController = self.delegate;
-			playerViewController.audioFileName = self.audioMap[sym.data];
-			
-			//load the audio file
-			[playerViewController loadAudioFile];
-			
-			//load the track metadata
-			[playerViewController loadTrackData:sym.data];
-			
-			//animate the pretransition view changes (light change and pause), then force transition back to the main screen
-			[UIView animateWithDuration:.05
-														delay:0
-													options:UIViewAnimationOptionCurveEaseIn
-											 animations:^(void) {
-												 self.scannerLightImageView.alpha = 0;
-												 self.crosshairsImageView.alpha = 0;
-											 }
-											 completion:^(BOOL finished){
-												 self.scannerLightImageView.image = self.scannerLightImageArray[GREEN];
-												 self.crosshairsImageView.image = self.crosshairImageArray[GREEN];
-												 [UIView animateWithDuration:.05
-																							 delay:0
-																						 options:UIViewAnimationOptionCurveEaseOut
-																					animations:^(){
-																						self.scannerLightImageView.alpha = 1;
-																						self.crosshairsImageView.alpha = 1;
-																					} completion:^(BOOL finished){
-																						[NSThread sleepForTimeInterval:0.45f];
-																						[self backButtonTapped];
-																					}];
-											 }];
-		}
-		break;
-	}
 }
 
 -(BOOL) isCorrectCode:(NSString*)data
@@ -269,6 +264,20 @@
 			return YES;
 	}
 	return NO;
+}
+
+-(void)setAudioMap:(NSDictionary *)audioMap
+{
+	_audioMap = audioMap;
+	
+	NSMutableArray * tempCodes = [[NSMutableArray alloc] init];
+	for (NSDictionary * fileDictionary in [_audioMap allValues])
+	{
+		NSLog(@"class of fileDictionary: %@",[fileDictionary class]);
+		NSLog(@"fileDictionary: %@", fileDictionary);
+    [tempCodes addObject:fileDictionary[EA_URL]];
+	}
+	self.codes = [tempCodes copy];
 }
 
 @end

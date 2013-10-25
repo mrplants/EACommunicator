@@ -23,10 +23,11 @@
 #define QR_RADIUS (31)
 #define QR_Y (409)
 
-#define SUBADVENTURE (@"Subadventure")
-#define UNIT (@"Unit")
-#define ADVENTURE_NUMBER (@"Adventure Number")
-#define URL (@"URL")
-#define AUDIO_FILE_NAME (@"Audio File Name")
+#define EA_SUBADVENTURE (@"Subadventure")
+#define EA_UNIT (@"Unit")
+#define EA_ADVENTURE_NUMBER (@"Adventure Number")
+#define EA_URL (@"URL")
+#define EA_AUDIO_FILE_NAME (@"Audio File Name")
+#define EA_ALREADY_PLAYED (@"Track Already Played")
 
 #endif

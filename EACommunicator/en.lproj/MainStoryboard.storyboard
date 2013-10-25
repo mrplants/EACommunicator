@@ -147,7 +147,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HlF-hl-KBw" customClass="ZBarReaderView">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HlF-hl-KBw">
                                 <rect key="frame" x="35" y="47" width="250" height="250"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -235,10 +235,10 @@
                     <connections>
                         <outlet property="backgroundImageView" destination="p6b-xo-TOk" id="fqx-hD-Nit"/>
                         <outlet property="cameraShutterView" destination="HmQ-gf-HnW" id="q3j-Nf-hwC"/>
+                        <outlet property="cameraView" destination="HlF-hl-KBw" id="Bna-sM-lLL"/>
                         <outlet property="crosshairsImageView" destination="biU-Hg-B75" id="U5B-dm-9yF"/>
                         <outlet property="resizingImageView" destination="rwD-D9-RCj" id="FKv-ts-6Wn"/>
                         <outlet property="scannerLightImageView" destination="p1R-yX-hV1" id="eUG-ke-ClE"/>
-                        <outlet property="zBarReaderView" destination="HlF-hl-KBw" id="iph-cM-grK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p5H-id-6Bc" userLabel="First Responder" sceneMemberID="firstResponder"/>

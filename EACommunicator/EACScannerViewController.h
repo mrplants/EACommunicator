@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol EAScannerDelegate <NSObject>
+
+-(void)didScanCode:(NSString*) code;
+
+@end
+
 @interface EACScannerViewController : UIViewController
 
 @property (nonatomic, weak) id delegate;
+@property (nonatomic, strong) NSDictionary * audioMap;
 
 @end
