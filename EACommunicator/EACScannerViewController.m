@@ -12,8 +12,9 @@
 #include "TargetConditionals.h"
 #import <AVFoundation/AVFoundation.h>
 #import <CoreVideo/CoreVideo.h>
+#import "ZBarSDK.h"
 
-@interface EACScannerViewController () <AVCaptureMetadataOutputObjectsDelegate>
+@interface EACScannerViewController () <AVCaptureMetadataOutputObjectsDelegate, ZBarCaptureDelegate>
 
 //image Views
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
@@ -31,6 +32,8 @@
 @property (weak, nonatomic) IBOutlet UIView *cameraShutterView;
 @property BOOL foundCode;
 
+@property (atomic, strong) ZBarCaptureReader * zBarReader;
+
 //codes that we are looking for
 @property (nonatomic, strong) NSArray * codes;
 
@@ -47,6 +50,7 @@
 
 -(void)viewDidLoad
 {
+	[ZBarReaderView class];
 	[super viewDidLoad];
 
 #define BLANK 0
@@ -90,13 +94,18 @@
     NSLog(@"Error: %@", error);
 	}
 	
-	AVCaptureMetadataOutput *output = [[AVCaptureMetadataOutput alloc] init];
-	[output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
-	[session addOutput:output];
-
-	NSLog(@"%@", [output availableMetadataObjectTypes]);
+//	AVCaptureMetadataOutput *output = [[AVCaptureMetadataOutput alloc] init];
+	self.zBarReader = [[ZBarCaptureReader alloc] init];
+	self.zBarReader.captureDelegate = self;
+	[session addOutput:self.zBarReader.captureOutput];
+	[self.zBarReader willStartRunning];
 	
-	[output setMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
+//	[output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
+//	[session addOutput:output];
+
+//	NSLog(@"%@", [output availableMetadataObjectTypes]);
+	
+//	[output setMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
 	
 	AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
 	
@@ -119,12 +128,15 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
 	NSString *QRCode = nil;
 	for (AVMetadataObject *metadata in metadataObjects) {
 		if ([metadata.type isEqualToString:AVMetadataObjectTypeQRCode]) {
-			// This will never happen; nobody has ever scanned a QR code... ever
 			QRCode = [(AVMetadataMachineReadableCodeObject *)metadata stringValue];
 			break;
 		}
 	}
-	
+	[self scannedCode:QRCode];
+}
+
+-(void)scannedCode:(NSString *) QRCode
+{
 	if ([self isCorrectCode:QRCode] && !self.foundCode)
 	{
 		self.foundCode = YES;
@@ -240,19 +252,31 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
 //	self.crosshairsImageView.image = self.crosshairImageArray[BLANK];
 	[self.videoSession startRunning];
 	[self revealCamera];
+	self.scannerLightImageView.image = self.scannerLightImageArray[RED];
+	self.crosshairsImageView.image = self.crosshairImageArray[RED];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
 {
 	[super viewDidDisappear:animated];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+	
+	[self.zBarReader willStopRunning];
 	[self.videoSession stopRunning];
+	self.zBarReader = nil;
+	self.videoSession = nil;
 }
 
 - (void) willRotateToInterfaceOrientation: (UIInterfaceOrientation) orient
 																 duration: (NSTimeInterval) duration
 {
 	// compensate for view rotation so camera preview is not rotated
-//	[self.cameraView willRotateToInterfaceOrientation: orient duration: duration];
+//	[self.zBarReaderView willRotateToInterfaceOrientation: orient
+//																							 duration: duration];
 	[super willRotateToInterfaceOrientation:orient duration:duration];
 }
 
@@ -278,6 +302,17 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
     [tempCodes addObject:fileDictionary[EA_URL]];
 	}
 	self.codes = [tempCodes copy];
+}
+
+-(void)captureReader:(ZBarCaptureReader *)captureReader didReadNewSymbolsFromImage:(ZBarImage *)image
+{
+	for(ZBarSymbol *sym in image.symbols)
+	{
+		[self scannedCode:sym.data];
+		if (self.foundCode) {
+			[self.zBarReader willStopRunning];
+		}
+	}
 }
 
 @end
