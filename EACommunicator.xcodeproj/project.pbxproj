@@ -1201,7 +1201,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"/Users/seanfitzgerald/Development/Contractor-Intern/iOS/Engineering_Adventures/code/communicator/EACommunicator/ZBarSDK",
+					"$(SRCROOT)/ZBarSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1221,7 +1221,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"/Users/seanfitzgerald/Development/Contractor-Intern/iOS/Engineering_Adventures/code/communicator/EACommunicator/ZBarSDK",
+					"$(SRCROOT)/ZBarSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
