@@ -12,6 +12,7 @@
 #include "TargetConditionals.h"
 #import <AVFoundation/AVFoundation.h>
 #import <CoreVideo/CoreVideo.h>
+#import "EAC_ZBarCaptureReader.h"
 #import "ZBarSDK.h"
 
 @interface EACScannerViewController () <AVCaptureMetadataOutputObjectsDelegate, ZBarCaptureDelegate>
@@ -32,7 +33,7 @@
 @property (weak, nonatomic) IBOutlet UIView *cameraShutterView;
 @property BOOL foundCode;
 
-@property (atomic, strong) ZBarCaptureReader * zBarReader;
+@property (nonatomic, strong) EAC_ZBarCaptureReader * zBarReader;
 
 //codes that we are looking for
 @property (nonatomic, strong) NSArray * codes;
@@ -95,7 +96,7 @@
 	}
 	
 //	AVCaptureMetadataOutput *output = [[AVCaptureMetadataOutput alloc] init];
-	self.zBarReader = [[ZBarCaptureReader alloc] init];
+	self.zBarReader = [[EAC_ZBarCaptureReader alloc] init];
 	self.zBarReader.captureDelegate = self;
 	[session addOutput:self.zBarReader.captureOutput];
 	[self.zBarReader willStartRunning];
@@ -263,12 +264,15 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
 
 -(void)viewWillDisappear:(BOOL)animated
 {
+	dispatch_async([self.zBarReader getRunningQueue], ^{
+		[self.zBarReader willStopRunning];
+		[self.videoSession stopRunning];
+	});
+	
 	[super viewWillDisappear:animated];
 	
-	[self.zBarReader willStopRunning];
-	[self.videoSession stopRunning];
-	self.zBarReader = nil;
-	self.videoSession = nil;
+//	self.zBarReader = nil;
+//	self.videoSession = nil;
 }
 
 - (void) willRotateToInterfaceOrientation: (UIInterfaceOrientation) orient

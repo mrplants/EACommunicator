@@ -10,6 +10,7 @@
 		2C1A37F11762633F00FF55DA /* track1A.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C1A37EE1762633F00FF55DA /* track1A.png */; };
 		2C1A37F21762633F00FF55DA /* track2A.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C1A37EF1762633F00FF55DA /* track2A.png */; };
 		2C1A37F31762633F00FF55DA /* track6A.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C1A37F01762633F00FF55DA /* track6A.png */; };
+		2C20E250182FDF30009B16F6 /* EAC_ZBarCaptureReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C20E24F182FDF30009B16F6 /* EAC_ZBarCaptureReader.m */; };
 		2C21BDB017AC20EB00406608 /* normalPlayPauseOld.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C21BDAF17AC20EB00406608 /* normalPlayPauseOld.png */; };
 		2C52198D1750136000C2BF8A /* bars-vis-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C52198C1750136000C2BF8A /* bars-vis-0.png */; };
 		2C52199417504D8300C2BF8A /* roundPlayButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C52199317504D8300C2BF8A /* roundPlayButton.png */; };
@@ -209,6 +210,8 @@
 		2C1A37EE1762633F00FF55DA /* track1A.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = track1A.png; path = ../../track1A.png; sourceTree = "<group>"; };
 		2C1A37EF1762633F00FF55DA /* track2A.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = track2A.png; path = ../../track2A.png; sourceTree = "<group>"; };
 		2C1A37F01762633F00FF55DA /* track6A.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = track6A.png; path = ../../track6A.png; sourceTree = "<group>"; };
+		2C20E24E182FDF30009B16F6 /* EAC_ZBarCaptureReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAC_ZBarCaptureReader.h; sourceTree = "<group>"; };
+		2C20E24F182FDF30009B16F6 /* EAC_ZBarCaptureReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAC_ZBarCaptureReader.m; sourceTree = "<group>"; };
 		2C21BDAF17AC20EB00406608 /* normalPlayPauseOld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = normalPlayPauseOld.png; sourceTree = "<group>"; };
 		2C52198C1750136000C2BF8A /* bars-vis-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bars-vis-0.png"; sourceTree = "<group>"; };
 		2C52199317504D8300C2BF8A /* roundPlayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = roundPlayButton.png; path = ../roundPlayButton.png; sourceTree = "<group>"; };
@@ -458,6 +461,8 @@
 		2C52198E175015A200C2BF8A /* other custom subclasses */ = {
 			isa = PBXGroup;
 			children = (
+				2C20E24E182FDF30009B16F6 /* EAC_ZBarCaptureReader.h */,
+				2C20E24F182FDF30009B16F6 /* EAC_ZBarCaptureReader.m */,
 				2C65BE5C174F01F500041E0F /* WatchBandStoryboardSegue.h */,
 				2C65BE5D174F01F500041E0F /* WatchBandStoryboardSegue.m */,
 			);
@@ -1108,6 +1113,7 @@
 				2C75441F174CF39400B353D0 /* EACScannerViewController.m in Sources */,
 				2C754423174CF42800B353D0 /* EACPlaybackViewController.m in Sources */,
 				2CD7E0CB174D961A0062D951 /* EACInstructionViewController.m in Sources */,
+				2C20E250182FDF30009B16F6 /* EAC_ZBarCaptureReader.m in Sources */,
 				2C65BE5E174F01F500041E0F /* WatchBandStoryboardSegue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
