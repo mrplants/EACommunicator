@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		143DB6CE1875FDE5006796A4 /* ea_duotr9_BB6.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 143DB6CD1875FDE5006796A4 /* ea_duotr9_BB6.mp3 */; };
 		147B400218525E0000C5980F /* ea_duotr1_PA1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 147B3FFA18525E0000C5980F /* ea_duotr1_PA1.mp3 */; };
 		147B400318525E0000C5980F /* ea_duotr2_PA2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 147B3FFB18525E0000C5980F /* ea_duotr2_PA2.mp3 */; };
 		147B400418525E0000C5980F /* ea_duotr3_LO1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 147B3FFC18525E0000C5980F /* ea_duotr3_LO1.mp3 */; };
@@ -215,6 +216,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		143DB6CD1875FDE5006796A4 /* ea_duotr9_BB6.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ea_duotr9_BB6.mp3; sourceTree = "<group>"; };
 		147B3FFA18525E0000C5980F /* ea_duotr1_PA1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ea_duotr1_PA1.mp3; sourceTree = "<group>"; };
 		147B3FFB18525E0000C5980F /* ea_duotr2_PA2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ea_duotr2_PA2.mp3; sourceTree = "<group>"; };
 		147B3FFC18525E0000C5980F /* ea_duotr3_LO1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ea_duotr3_LO1.mp3; sourceTree = "<group>"; };
@@ -803,6 +805,7 @@
 				2CE4E381181509BC009F2499 /* ea_duotr6_BB3_01.mp3 */,
 				2CE4E382181509BC009F2499 /* ea_duotr7_BB4_01.mp3 */,
 				2CE4E383181509BC009F2499 /* ea_duotr8_BB5_01.mp3 */,
+				143DB6CD1875FDE5006796A4 /* ea_duotr9_BB6.mp3 */,
 			);
 			path = "2. Bubbles";
 			sourceTree = "<group>";
@@ -928,6 +931,11 @@
 				CLASSPREFIX = EAC;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Museum of Science Boston";
+				TargetAttributes = {
+					2C7543F6174CF06D00B353D0 = {
+						DevelopmentTeam = PTAUHZ2E6Z;
+					};
+				};
 			};
 			buildConfigurationList = 2C7543F2174CF06D00B353D0 /* Build configuration list for PBXProject "EACommunicator" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1131,6 +1139,7 @@
 				2CE4E3E8181509BD009F2499 /* ea_duotr06_RR4_01.mp3 in Resources */,
 				2CA8A8E71756DBF10012718E /* Adventure.png in Resources */,
 				2C1A37F11762633F00FF55DA /* track1A.png in Resources */,
+				143DB6CE1875FDE5006796A4 /* ea_duotr9_BB6.mp3 in Resources */,
 				2C1A37F21762633F00FF55DA /* track2A.png in Resources */,
 				2CE4E3BD181509BD009F2499 /* ea_duotr5_TT3_01.mp3 in Resources */,
 				147B400518525E0000C5980F /* ea_duotr4_LO2.mp3 in Resources */,
@@ -1240,6 +1249,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EACommunicator/EACommunicator-Prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -1251,6 +1262,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1260,6 +1272,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EACommunicator/EACommunicator-Prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -1271,6 +1285,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
 			};
